@@ -1,0 +1,105 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    namespace 'com.example.axiom'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.axiom"
+        minSdk 31
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "https"]
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'MY_SECRET', '"bffbdb871ef4f400e5c9077cc859c1d038a2e9e0b248243df193084c31b0f47b20535c79eae657cd0e43001d30360b13da616711ae556cba58382f275dec4d3b"'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'MY_SECRET', '"bffbdb871ef4f400e5c9077cc859c1d038a2e9e0b248243df193084c31b0f47b20535c79eae657cd0e43001d30360b13da616711ae556cba58382f275dec4d3b"'
+        }
+    }
+
+    buildFeatures {
+        viewBinding  true
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_9
+        targetCompatibility JavaVersion.VERSION_1_9
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+}
+
+dependencies {
+
+    implementation 'androidx.core:core:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    // Room
+    implementation 'androidx.room:room-runtime:2.4.0'
+    kapt 'androidx.room:room-compiler:2.5.0'
+    implementation 'androidx.room:room-ktx:2.4.0'
+    //ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    // NavArgs
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    //OAuth AuthO
+    implementation 'com.auth0.android:auth0:2.+'
+    // Bcrypt
+    implementation 'org.mindrot:jbcrypt:0.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    // JWT
+    implementation 'com.auth0:java-jwt:3.18.2'
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
+
+
+    // Scalars
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
+    // HTTP Server
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'com.sun.net.httpserver:http'
+    implementation 'com.sun.net.httpserver:http:20070405'
+
+
+
+}
+
+
+
+
+

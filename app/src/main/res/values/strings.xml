@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Axiom</string>
+
+    <string name="com_auth0_domain">dev-jmiqxzs37xq6oq81.uk.auth0.com</string>
+
+    <string name="com_auth0_client_id">oEgPJOR1k3CV6iqZqAAQ5krcnKASTxsx</string>
+    <string name="com_auth0_scheme">https</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_create_blog">CreateBlog</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_search">Search</string>
+    <string name="channel_name">Search</string>
+
+
+
+
+</resources>
