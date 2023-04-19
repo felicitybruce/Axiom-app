@@ -64,7 +64,7 @@ fun main() {
         }
     }
 
-    server.createContext("/register") { exchange ->
+    server.createContext("/users") { exchange ->
         if (exchange.requestMethod == "POST") {
             val requestBody = BufferedReader(InputStreamReader(exchange.requestBody)).use { it.readText() }
 
