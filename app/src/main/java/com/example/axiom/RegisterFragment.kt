@@ -22,6 +22,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.auth0.android.Auth0
+import com.auth0.android.authentication.AuthenticationException
+import com.auth0.android.provider.WebAuthProvider
+import com.auth0.android.result.Credentials
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.example.axiom.client.ApiClient
@@ -34,8 +37,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.mindrot.jbcrypt.BCrypt
 import retrofit2.Call
-import retrofit2.Callback
+import retrofit2.Callback as RetrofitCallback
 import retrofit2.Response
+import com.auth0.android.callback.Callback as Auth0Callback
+
 
 class RegisterFragment : Fragment() {
 
@@ -96,7 +101,7 @@ class RegisterFragment : Fragment() {
 
         // Sign up with Google -> Google login web view
         googleSignInTv.setOnClickListener {
-//            loginWithBrowser()
+            loginWithBrowser()
         }
 
 
@@ -140,7 +145,7 @@ class RegisterFragment : Fragment() {
         // API call
         val apiCall = ApiClient.getApiService().registerUser(registerRequest)
 
-        apiCall.enqueue(object : Callback<RegisterResponse> {
+        apiCall.enqueue(object : RetrofitCallback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
@@ -311,28 +316,36 @@ class RegisterFragment : Fragment() {
         return isValid
     }
 
-//    private fun loginWithBrowser() {
-//        // Setup the WebAuthProvider, using the custom scheme and scope.
-//        WebAuthProvider.login(account)
-//            .withScheme(getString(R.string.com_auth0_scheme))
-//            .withScope("openid profile email read:current_user update:current_user_metadata")
-//            .withAudience("https://${getString(R.string.com_auth0_domain)}/api/v2/")
-//
-//            // Launch the authentication passing the callback where the results will be received
-//            .start(requireContext(), object : Callback<Credentials, AuthenticationException> {
-//                override fun onFailure(error: AuthenticationException) {
-//                    showSnackBar("Failure: ${error.getCode()}")
-//                }
-//
-//                override fun onSuccess(result: Credentials) {
-//                    val accessToken = result.accessToken
-//                    showSnackBar("Success: ${result.accessToken}")
-//                    var navLogin = activity as FragmentNavigation
-//                    navLogin.navigateFrag(HomeFragment(), false)
-//
-//                }
-//            })
-//    }
+    private fun loginWithBrowser() {
+        // Setup the WebAuthProvider, using the custom scheme and scope.
+        WebAuthProvider.login(account)
+            .withScheme(getString(R.string.com_auth0_scheme))
+            .withScope("openid profile email read:current_user update:current_user_metadata")
+            .withAudience("https://${getString(R.string.com_auth0_domain)}/api/v2/")
+
+            // Launch the authentication passing the callback where the results will be received
+            .start(requireContext(), object : Auth0Callback<Credentials, AuthenticationException> {
+                override fun onFailure(error: AuthenticationException) {
+                    Snackbar.make(requireView(), "Failure: ${error.getCode()}", Snackbar.LENGTH_SHORT).setAction("Retry") {
+                        // Perform action when "Retry" button is clicked
+                        // For example, resend a network request
+                    }
+                        .setActionTextColor(ContextCompat.getColor(requireContext(), androidx.appcompat.R.color.material_blue_grey_800))
+                        .setBackgroundTint(ContextCompat.getColor(requireContext(), androidx.appcompat.R.color.material_deep_teal_200))
+                        .show()
+
+                }
+
+                override fun onSuccess(result: Credentials) {
+                    val accessToken = result.accessToken
+                    Snackbar.make(requireView(), "Success: ${result.accessToken}", Snackbar.LENGTH_SHORT).show()
+
+                    var navLogin = activity as FragmentNavigation
+                    navLogin.navigateFrag(HomeFragment(), false)
+
+                }
+            })
+    }
 
     private fun clearFormIcons() {
         firstName.text.clear()
