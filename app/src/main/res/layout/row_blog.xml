@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:padding="5dp">
+
+    <ImageButton
+        android:id="@+id/moreBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="More button"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:src="@drawable/ic_next_black" />
+
+    <!-- Post Title-->
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_toStartOf="@+id/moreBtn"
+        android:text="Post Title"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Author and details-->
+    <TextView
+        android:id="@+id/publishInfoTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleTv"
+        android:layout_toStartOf="@+id/moreBtn"
+        android:text="By Felicity Bruce 22/02/2023"
+         />
+
+    <!-- Post Image-->
+    <ImageView
+        android:id="@+id/imageIv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/publishInfoTv"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/darker_gray"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_image_placeholder" />
+
+    <!--Post Description-->
+    <TextView
+        android:id="@+id/descriptionTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/publishInfoTv"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="6dp"
+        android:layout_toStartOf="@+id/moreBtn"
+        android:layout_toEndOf="@+id/imageIv"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque placerat lacus quis enim ultrices, et molestie turpis pretium, vehicula sollicitudin ligula. Pnatana lobana ka."
+        android:textColor="@android:color/black" />
+</RelativeLayout>

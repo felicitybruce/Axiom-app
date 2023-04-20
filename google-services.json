@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "921172581572",
+    "project_id": "axiom-bac3f",
+    "storage_bucket": "axiom-bac3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921172581572:android:4f1f3d3b890b452e483d91",
+        "android_client_info": {
+          "package_name": "com.example.axiom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921172581572-qnot9nfsknujb8tlggekk3pj3908t1jg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeNjlI0h0TANmSqWKjObpRDet0heuQgI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "921172581572-qnot9nfsknujb8tlggekk3pj3908t1jg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
