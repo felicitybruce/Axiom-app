@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
-import android.text.method.TextKeyListener.clear
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,7 +16,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -35,12 +33,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.mindrot.jbcrypt.BCrypt
 import retrofit2.Call
-import retrofit2.Callback as RetrofitCallback
 import retrofit2.Response
 import com.auth0.android.callback.Callback as Auth0Callback
-
+import retrofit2.Callback as RetrofitCallback
 
 class RegisterFragment : Fragment() {
 
@@ -146,11 +142,11 @@ class RegisterFragment : Fragment() {
         password: String,
         cnfPassword: String
     ) {
-        val registerRequest =
+        val user =
             RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
 
         // API call
-        val apiCall = ApiClient.getApiService().registerUser(registerRequest)
+        val apiCall = ApiClient.getApiService().registerUser(user)
 
         apiCall.enqueue(object : RetrofitCallback<RegisterResponse> {
             override fun onResponse(
@@ -159,7 +155,7 @@ class RegisterFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     // create a User object from the registration data
-                    val user = User(id, firstName, lastName, email, username, password, cnfPassword)
+                    val user = RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
 
                     // insert the User object into the Room database
                     lifecycleScope.launch {
@@ -227,8 +223,8 @@ class RegisterFragment : Fragment() {
                             // Launch a coroutine and call sendUserToServer from within that coroutine
                             CoroutineScope(Dispatchers.Main).launch {
                                 try {
-                                    sendUserToServer(
-                                        0,
+                                    val registerRequest = RegisterRequest(
+                                        null,
                                         firstName,
                                         lastName,
                                         email,
@@ -236,6 +232,8 @@ class RegisterFragment : Fragment() {
                                         password,
                                         cnfPassword
                                     )
+                                    Log.d("test", "register: about to register $registerRequest")
+                                    appDb.userDao().register(registerRequest)
 
                                     navigateScreen(HomeFragment())
                                     Toast.makeText(
