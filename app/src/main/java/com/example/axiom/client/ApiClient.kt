@@ -11,7 +11,7 @@ object ApiClient {
     private fun getRetrofit(): Retrofit {
 
         // Log the data
-        val logger = HttpLoggingInterceptor();
+        val logger = HttpLoggingInterceptor()
         // Logging whole body
         logger.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
