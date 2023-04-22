@@ -44,7 +44,7 @@ import com.auth0.android.callback.Callback as Auth0Callback
 
 class RegisterFragment : Fragment() {
 
-    // Lateinits
+    // Late init variables
     private lateinit var appDb: UserRoomDatabase
     private lateinit var account: Auth0
     private lateinit var googleSignInTv: TextView
@@ -56,9 +56,6 @@ class RegisterFragment : Fragment() {
     private lateinit var username: EditText
     private lateinit var password: EditText
     private lateinit var cnfPassword: EditText
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,9 +79,6 @@ class RegisterFragment : Fragment() {
         googleSignInTv = view.findViewById(R.id.tvGoogle)
         loginBtn = view.findViewById(R.id.btnLogReg)
 
-        // Rainbow Google TV
-        colourfulGoogle()
-
         // Global: Get inputs for EditTexts
         firstName = view.findViewById(R.id.etFirstName)!!
         lastName = view.findViewById(R.id.etLastName)!!
@@ -93,9 +87,12 @@ class RegisterFragment : Fragment() {
         password = view.findViewById(R.id.etPassword)!!
         cnfPassword = view.findViewById(R.id.etCnfPassword)!!
 
+        // Rainbow Google TV
+        colourfulGoogle()
 
         // Register button -> Home page or error
         registerBtn.setOnClickListener {
+            hideKeyboard()
             register()
         }
 
@@ -104,13 +101,13 @@ class RegisterFragment : Fragment() {
             loginWithBrowser()
         }
 
-
         loginBtn.setOnClickListener {
             navigateScreen(LoginFragment())
         }
-        return view
-    }
 
+        return view
+
+    }
 
 
     // MAIN CODE
@@ -122,11 +119,12 @@ class RegisterFragment : Fragment() {
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
-    private val JWT_SECRET = BuildConfig.MY_SECRET
 
+    private val JWT_SECRET = BuildConfig.MY_SECRET
 
     private fun generateJwt() {
         val token = JWT.create()
@@ -139,8 +137,17 @@ class RegisterFragment : Fragment() {
             .sign(Algorithm.HMAC256(JWT_SECRET))
     }
 
-    private suspend fun sendUserToServer(id: Int, firstName: String, lastName: String, email: String, username: String, password: String, cnfPassword: String) {
-        val registerRequest = RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
+    private suspend fun sendUserToServer(
+        id: Int,
+        firstName: String,
+        lastName: String,
+        email: String,
+        username: String,
+        password: String,
+        cnfPassword: String
+    ) {
+        val registerRequest =
+            RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
 
         // API call
         val apiCall = ApiClient.getApiService().registerUser(registerRequest)
@@ -163,13 +170,23 @@ class RegisterFragment : Fragment() {
                     navigateScreen(HomeFragment())
                 } else {
                     val errorBody = response.errorBody()?.string()
-                    Snackbar.make(requireView(), "Unable to register: $errorBody", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        "Unable to register: $errorBody",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
 
                 }
             }
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                view?.let { Snackbar.make(it, "An unexpected error has occurred ${t.localizedMessage}", Snackbar.LENGTH_SHORT).show() }
 
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "An unexpected error has occurred ${t.localizedMessage}",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             }
         })
     }
@@ -183,44 +200,34 @@ class RegisterFragment : Fragment() {
         val cnfPassword = view?.findViewById<EditText>(R.id.etCnfPassword)?.text.toString()
 
         return try {
-            // generate salt and hash the password
             CoroutineScope(Dispatchers.Default).launch {
-//                val salt = BCrypt.gensalt()
-//                val hashedPassword = BCrypt.hashpw(password, salt)
-
                 withContext(Dispatchers.Main) {
-                    // create user object and save it to the database
                     if (nativeValidateForm()) {
-                        // check if email and username already exist in the database
+                        // Check if email and username already exist in the database
                         val existingUserWithEmail = appDb.userDao().getUserByEmail(email)
                         val existingUserWithUsername = appDb.userDao().getUserByUsername(username)
 
                         if (existingUserWithEmail != null) {
-                            // email already exists, show error message
-                            Snackbar.make(requireView(), "Email is already taken", Snackbar.LENGTH_SHORT).show()
+                            // Email already exists, show error message
+                            Snackbar.make(
+                                requireView(),
+                                "Email is already taken",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
 
                         } else if (existingUserWithUsername != null) {
-                            // username already exists, show error message
-                            Snackbar.make(requireView(), "Username is already taken", Snackbar.LENGTH_SHORT).show()
+                            // Username already exists, show error message
+                            Snackbar.make(
+                                requireView(),
+                                "Username is already taken",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         } else {
-                            sendUserToServer(id, firstName, lastName, email, username, password, cnfPassword)
-
-                            // email and username are available, insert new user record
-                            // Create a RegisterRequest instance using the user's input data
-                            val registerRequest = RegisterRequest(
-                                0,
-                                firstName,
-                                lastName,
-                                email,
-                                username,
-                                password,
-                                cnfPassword
-                            )
 
                             // Launch a coroutine and call sendUserToServer from within that coroutine
                             CoroutineScope(Dispatchers.Main).launch {
                                 try {
-                                    val registerResponse = sendUserToServer(
+                                    sendUserToServer(
                                         0,
                                         firstName,
                                         lastName,
@@ -236,15 +243,21 @@ class RegisterFragment : Fragment() {
                                         "You are now an official Axiom affiliate 🤗.",
                                         Toast.LENGTH_LONG
                                     ).show()
-//                            clearFormIcons()
                                 } catch (e: Exception) {
-                                    Snackbar.make(requireView(), "Unable to register", Snackbar.LENGTH_SHORT).show()
-
+                                    Snackbar.make(
+                                        requireView(),
+                                        "Unable to register",
+                                        Snackbar.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
                         }
                     } else {
-                        Snackbar.make(requireView(), "Please fill in all fields correctly.", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(
+                            requireView(),
+                            "Please fill in all fields correctly.",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
 
                     }
                 }
@@ -326,43 +339,42 @@ class RegisterFragment : Fragment() {
             // Launch the authentication passing the callback where the results will be received
             .start(requireContext(), object : Auth0Callback<Credentials, AuthenticationException> {
                 override fun onFailure(error: AuthenticationException) {
-                    Snackbar.make(requireView(), "Failure: ${error.getCode()}", Snackbar.LENGTH_SHORT).setAction("Retry") {
+                    Snackbar.make(
+                        requireView(),
+                        "Failure: ${error.getCode()}",
+                        Snackbar.LENGTH_SHORT
+                    ).setAction("Retry") {
                         // Perform action when "Retry" button is clicked
                         // For example, resend a network request
                     }
-                        .setActionTextColor(ContextCompat.getColor(requireContext(), androidx.appcompat.R.color.material_blue_grey_800))
-                        .setBackgroundTint(ContextCompat.getColor(requireContext(), androidx.appcompat.R.color.material_deep_teal_200))
+                        .setActionTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                androidx.appcompat.R.color.material_blue_grey_800
+                            )
+                        )
+                        .setBackgroundTint(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                androidx.appcompat.R.color.material_deep_teal_200
+                            )
+                        )
                         .show()
-
                 }
 
                 override fun onSuccess(result: Credentials) {
                     val accessToken = result.accessToken
-                    Snackbar.make(requireView(), "Success: ${result.accessToken}", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        "Success: ${result.accessToken}",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
 
                     var navLogin = activity as FragmentNavigation
                     navLogin.navigateFrag(HomeFragment(), false)
-
                 }
             })
     }
-
-    private fun clearFormIcons() {
-        firstName.text.clear()
-        lastName.text.clear()
-        email.text.clear()
-        username.text.clear()
-        password.text.clear()
-        cnfPassword.text.clear()
-
-        view?.findViewById<EditText>(R.id.etFirstName)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-        view?.findViewById<EditText>(R.id.etLastName)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-        view?.findViewById<EditText>(R.id.etEmail)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-        view?.findViewById<EditText>(R.id.etUsername)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-        view?.findViewById<EditText>(R.id.etPassword)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-        view?.findViewById<EditText>(R.id.etCnfPassword)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-    }
-
 
     private fun colourfulGoogle() {
         val googleSignInText = getString(R.string.colourful_google)

@@ -14,19 +14,6 @@ import java.io.InputStreamReader
 import java.lang.reflect.Type
 import java.net.InetSocketAddress
 
-
-// Retrofit endpoint
-interface RestApi {
-    @GET("/hello")
-    fun sayHello(): Call<String>
-
-    @GET("/test")
-    fun test(): Call<String>
-
-    @POST("/register")
-    fun register(@Body user: User): Call<String>
-}
-
 fun main() {
     val server = HttpServer.create(InetSocketAddress(8080), 0)
     server.createContext("/") { exchange ->
@@ -96,5 +83,5 @@ fun main() {
         .addConverterFactory(ScalarsConverterFactory.create())
         .build()
 
-    println("Server running on port ${retrofit.baseUrl().port} 💥")
+    println("Server listening on ${retrofit.baseUrl()} 😵‍💫")
 }
