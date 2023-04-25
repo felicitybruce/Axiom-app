@@ -26,7 +26,6 @@ import com.auth0.android.result.Credentials
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.example.axiom.client.ApiClient
-import com.example.axiom.model.request.RegisterRequest
 import com.example.axiom.model.response.RegisterResponse
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -143,7 +142,7 @@ class RegisterFragment : Fragment() {
         cnfPassword: String
     ) {
         val user =
-            RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
+            User(id, firstName, lastName, email, username, password, cnfPassword)
 
         // API call
         val apiCall = ApiClient.getApiService().registerUser(user)
@@ -155,12 +154,12 @@ class RegisterFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     // create a User object from the registration data
-                    val user = RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
+                    val user = User(id, firstName, lastName, email, username, password, cnfPassword)
 
                     // insert the User object into the Room database
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
-                            appDb.userDao().register(user)
+                            appDb.userDao().insert(user)
                         }
                     }
                     navigateScreen(HomeFragment())
@@ -223,7 +222,7 @@ class RegisterFragment : Fragment() {
                             // Launch a coroutine and call sendUserToServer from within that coroutine
                             CoroutineScope(Dispatchers.Main).launch {
                                 try {
-                                    val registerRequest = RegisterRequest(
+                                    val user = User(
                                         null,
                                         firstName,
                                         lastName,
@@ -232,8 +231,8 @@ class RegisterFragment : Fragment() {
                                         password,
                                         cnfPassword
                                     )
-                                    Log.d("test", "register: about to register $registerRequest")
-                                    appDb.userDao().register(registerRequest)
+                                    Log.d("test", "register: about to register $user")
+                                    appDb.userDao().insert(user)
 
                                     navigateScreen(HomeFragment())
                                     Toast.makeText(

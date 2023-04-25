@@ -1,6 +1,5 @@
 package com.example.axiom
 
-import com.example.axiom.model.request.RegisterRequest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sun.net.httpserver.HttpServer
@@ -53,8 +52,8 @@ fun main() {
             val requestBody = BufferedReader(InputStreamReader(exchange.requestBody)).use { it.readText() }
 
             // Deserialize JSON data into User object
-            val userType: Type = object : TypeToken<RegisterRequest>() {}.type
-            val user = Gson().fromJson<RegisterRequest>(requestBody, userType)
+            val userType: Type = object : TypeToken<User>() {}.type
+            val user = Gson().fromJson<User>(requestBody, userType)
 
             // Do something with the User object, e.g. store it in a database
             println("Received user: $user")
