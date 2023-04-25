@@ -38,7 +38,7 @@ import com.auth0.android.callback.Callback as Auth0Callback
 import retrofit2.Callback as RetrofitCallback
 
 class RegisterFragment : Fragment() {
-
+    // TODO: LOGGER NOT WORKING BUT SERVER IS
     // Late init variables
     private lateinit var appDb: UserRoomDatabase
     private lateinit var account: Auth0
