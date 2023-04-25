@@ -1,6 +1,7 @@
 package com.example.axiom
 
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
@@ -8,39 +9,29 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.example.axiom.client.ApiClient
-import com.example.axiom.model.response.RegisterResponse
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Response
 import com.auth0.android.callback.Callback as Auth0Callback
-import retrofit2.Callback as RetrofitCallback
 
-class RegisterFragment : Fragment() {
+
+class RegisterFragment : Fragment(R.layout.fragment_register) {
     // TODO: LOGGER NOT WORKING BUT SERVER IS
     // Late init variables
-    private lateinit var appDb: UserRoomDatabase
+//    private lateinit var appDb: UserRoomDatabase
     private lateinit var account: Auth0
     private lateinit var googleSignInTv: TextView
     private lateinit var registerBtn: Button
@@ -52,22 +43,34 @@ class RegisterFragment : Fragment() {
     private lateinit var password: EditText
     private lateinit var cnfPassword: EditText
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private val navigationArgs: ProfileFragmentArgs by navArgs()
+    lateinit var user: User
+
+    // Use the 'by activityViewModels()' Kotlin property delegate from the fragment-ktx artifact
+    // to share the ViewModel across fragments.
+    private val viewModel: AxiomViewModel by activityViewModels {
+        AxiomViewModelFactory(
+            (activity?.application as AxiomApplication).database.userDao()
+        )
+    }
+
+    /**
+     * Called when the view is created.
+     * The itemId Navigation argument determines the edit item  or add new item.
+     * If the itemId is positive, this method retrieves the information from the database and
+     * allows the user to update it.
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Room: Init database
-        appDb = UserRoomDatabase.getDatabase(requireContext())
+//        appDb = UserRoomDatabase.getDatabase(requireContext())
 
         // AuthO: Set up the account object with the Auth0 application details
         account = Auth0(
             getString(R.string.com_auth0_client_id),
             getString(R.string.com_auth0_domain)
         )
-
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_register, container, false)
 
         // Global: Get buttons
         registerBtn = view.findViewById(R.id.btnRegReg)
@@ -88,7 +91,7 @@ class RegisterFragment : Fragment() {
         // Register button -> Home page or error
         registerBtn.setOnClickListener {
             hideKeyboard()
-            register()
+            addNewUser()
         }
 
         // Sign up with Google -> Google login web view
@@ -99,13 +102,40 @@ class RegisterFragment : Fragment() {
         loginBtn.setOnClickListener {
             navigateScreen(LoginFragment())
         }
+    }
 
-        return view
+    // MAIN CODE
 
+
+    /**
+     * Inserts the new User into database and navigates up to list fragment.
+     */
+    private fun addNewUser() {
+        if (nativeValidateForm()) {
+            viewModel.addNewUser(
+                firstName.text.toString(),
+                lastName.text.toString(),
+                email.text.toString(),
+                username.text.toString(),
+                password.text.toString(),
+                cnfPassword.text.toString()
+            )
+            Log.d("edittexts", "addNewUser: from edittexts ")
+//            val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+//            findNavController().navigate(action)
+            navigateScreen(HomeFragment())
+        }
     }
 
 
-    // MAIN CODE
+
+
+
+
+
+
+
+
 
 
     private fun navigateScreen(fragment: Fragment) {
@@ -132,139 +162,131 @@ class RegisterFragment : Fragment() {
             .sign(Algorithm.HMAC256(JWT_SECRET))
     }
 
-    private suspend fun sendUserToServer(
-        id: Int,
-        firstName: String,
-        lastName: String,
-        email: String,
-        username: String,
-        password: String,
-        cnfPassword: String
-    ) {
-        val user =
-            User(id, firstName, lastName, email, username, password, cnfPassword)
+//    private suspend fun sendUserToServer(id: Int, firstName: String, lastName: String, email: String, username: String, password: String, cnfPassword: String) {
+//        val user =
+//            User(id, firstName, lastName, email, username, password, cnfPassword)
+//
+//        // API call
+//        val apiCall = ApiClient.getApiService().registerUser(user)
+//
+//        apiCall.enqueue(object : RetrofitCallback<RegisterResponse> {
+//            override fun onResponse(
+//                call: Call<RegisterResponse>,
+//                response: Response<RegisterResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                    // create a User object from the registration data
+//                    val user = User(id, firstName, lastName, email, username, password, cnfPassword)
+//
+//                    // insert the User object into the Room database
+//                    lifecycleScope.launch {
+//                        withContext(Dispatchers.IO) {
+//                            appDb.userDao().insert(user)
+//                        }
+//                    }
+//                    navigateScreen(HomeFragment())
+//                } else {
+//                    val errorBody = response.errorBody()?.string()
+//                    Snackbar.make(
+//                        requireView(),
+//                        "Unable to register: $errorBody",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+//                view?.let {
+//                    Snackbar.make(
+//                        it,
+//                        "An unexpected error has occurred ${t.localizedMessage}",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        })
+//    }
 
-        // API call
-        val apiCall = ApiClient.getApiService().registerUser(user)
-
-        apiCall.enqueue(object : RetrofitCallback<RegisterResponse> {
-            override fun onResponse(
-                call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
-            ) {
-                if (response.isSuccessful) {
-                    // create a User object from the registration data
-                    val user = User(id, firstName, lastName, email, username, password, cnfPassword)
-
-                    // insert the User object into the Room database
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
-                            appDb.userDao().insert(user)
-                        }
-                    }
-                    navigateScreen(HomeFragment())
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    Snackbar.make(
-                        requireView(),
-                        "Unable to register: $errorBody",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-
-                }
-            }
-
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                view?.let {
-                    Snackbar.make(
-                        it,
-                        "An unexpected error has occurred ${t.localizedMessage}",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-    }
-
-    private fun register(): Boolean {
-        val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()
-        val lastName = view?.findViewById<EditText>(R.id.etLastName)?.text.toString()
-        val email = view?.findViewById<EditText>(R.id.etEmail)?.text.toString()
-        val username = view?.findViewById<EditText>(R.id.etUsername)?.text.toString()
-        val password = view?.findViewById<EditText>(R.id.etPassword)?.text.toString()
-        val cnfPassword = view?.findViewById<EditText>(R.id.etCnfPassword)?.text.toString()
-
-        return try {
-            CoroutineScope(Dispatchers.Default).launch {
-                withContext(Dispatchers.Main) {
-                    if (nativeValidateForm()) {
-                        // Check if email and username already exist in the database
-                        val existingUserWithEmail = appDb.userDao().getUserByEmail(email)
-                        val existingUserWithUsername = appDb.userDao().getUserByUsername(username)
-
-                        if (existingUserWithEmail != null) {
-                            // Email already exists, show error message
-                            Snackbar.make(
-                                requireView(),
-                                "Email is already taken",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-
-                        } else if (existingUserWithUsername != null) {
-                            // Username already exists, show error message
-                            Snackbar.make(
-                                requireView(),
-                                "Username is already taken",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        } else {
-
-                            // Launch a coroutine and call sendUserToServer from within that coroutine
-                            CoroutineScope(Dispatchers.Main).launch {
-                                try {
-                                    val user = User(
-                                        null,
-                                        firstName,
-                                        lastName,
-                                        email,
-                                        username,
-                                        password,
-                                        cnfPassword
-                                    )
-                                    Log.d("test", "register: about to register $user")
-                                    appDb.userDao().insert(user)
-
-                                    navigateScreen(HomeFragment())
-                                    Toast.makeText(
-                                        requireActivity(),
-                                        "You are now an official Axiom affiliate 🤗.",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                } catch (e: Exception) {
-                                    Snackbar.make(
-                                        requireView(),
-                                        "Unable to register",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        }
-                    } else {
-                        Snackbar.make(
-                            requireView(),
-                            "Please fill in all fields correctly.",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
-            }
-            true
-        } catch (e: Exception) {
-            Toast.makeText(requireActivity(), "Error:${e.message}", Toast.LENGTH_SHORT).show()
-            false
-        }
-    }
+//    private fun register(): Boolean {
+//        val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()
+//        val lastName = view?.findViewById<EditText>(R.id.etLastName)?.text.toString()
+//        val email = view?.findViewById<EditText>(R.id.etEmail)?.text.toString()
+//        val username = view?.findViewById<EditText>(R.id.etUsername)?.text.toString()
+//        val password = view?.findViewById<EditText>(R.id.etPassword)?.text.toString()
+//        val cnfPassword = view?.findViewById<EditText>(R.id.etCnfPassword)?.text.toString()
+//
+//        return try {
+//            CoroutineScope(Dispatchers.Default).launch {
+//                withContext(Dispatchers.Main) {
+//                    if (nativeValidateForm()) {
+//                        // Check if email and username already exist in the database
+//                        val existingUserWithEmail = appDb.userDao().getUserByEmail(email)
+//                        val existingUserWithUsername = appDb.userDao().getUserByUsername(username)
+//
+//                        if (existingUserWithEmail != null) {
+//                            // Email already exists, show error message
+//                            Snackbar.make(
+//                                requireView(),
+//                                "Email is already taken",
+//                                Snackbar.LENGTH_SHORT
+//                            ).show()
+//
+//                        } else if (existingUserWithUsername != null) {
+//                            // Username already exists, show error message
+//                            Snackbar.make(
+//                                requireView(),
+//                                "Username is already taken",
+//                                Snackbar.LENGTH_SHORT
+//                            ).show()
+//                        } else {
+//
+//                            // Launch a coroutine and call sendUserToServer from within that coroutine
+//                            CoroutineScope(Dispatchers.Main).launch {
+//                                try {
+//                                    val user = User(
+//                                        null,
+//                                        firstName,
+//                                        lastName,
+//                                        email,
+//                                        username,
+//                                        password,
+//                                        cnfPassword
+//                                    )
+//                                    Log.d("test", "register: about to register $user")
+//                                    appDb.userDao().insert(user)
+//
+//                                    navigateScreen(HomeFragment())
+//                                    Toast.makeText(
+//                                        requireActivity(),
+//                                        "You are now an official Axiom affiliate 🤗.",
+//                                        Toast.LENGTH_LONG
+//                                    ).show()
+//                                } catch (e: Exception) {
+//                                    Snackbar.make(
+//                                        requireView(),
+//                                        "Unable to register",
+//                                        Snackbar.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//                            }
+//                        }
+//                    } else {
+//                        Snackbar.make(
+//                            requireView(),
+//                            "Please fill in all fields correctly.",
+//                            Snackbar.LENGTH_SHORT
+//                        ).show()
+//
+//                    }
+//                }
+//            }
+//            true
+//        } catch (e: Exception) {
+//            Toast.makeText(requireActivity(), "Error:${e.message}", Toast.LENGTH_SHORT).show()
+//            false
+//        }
+//    }
 
     private fun nativeValidateForm(): Boolean {
         val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()
@@ -413,5 +435,17 @@ class RegisterFragment : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         googleSignInTv.text = spannableString
+    }
+
+
+    /**
+     * Called before fragment is destroyed.
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Hide keyboard.
+        val inputMethodManager = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 }

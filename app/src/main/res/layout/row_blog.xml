@@ -4,6 +4,7 @@
     android:layout_marginBottom="5dp"
     android:padding="5dp">
 
+
     <ImageButton
         android:id="@+id/moreBtn"
         android:layout_width="wrap_content"
@@ -69,4 +70,5 @@
         android:maxLines="4"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque placerat lacus quis enim ultrices, et molestie turpis pretium, vehicula sollicitudin ligula. Pnatana lobana ka."
         android:textColor="@android:color/black" />
+
 </RelativeLayout>
