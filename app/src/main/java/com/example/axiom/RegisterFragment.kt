@@ -7,6 +7,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -132,11 +133,20 @@ class RegisterFragment : Fragment() {
             .sign(Algorithm.HMAC256(JWT_SECRET))
     }
 
-    private suspend fun sendUserToServer(id: Int, firstName: String, lastName: String, email: String, username: String, password: String, cnfPassword: String) {
-        val registerRequest = RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
+    private suspend fun sendUserToServer(
+        id: Int,
+        firstName: String,
+        lastName: String,
+        email: String,
+        username: String,
+        password: String,
+        cnfPassword: String
+    ) {
+        val user =
+            RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
 
         // API call
-        val apiCall = ApiClient.getApiService().registerUser(registerRequest)
+        val apiCall = ApiClient.getApiService().registerUser(user)
 
         apiCall.enqueue(object : RetrofitCallback<RegisterResponse> {
             override fun onResponse(
@@ -156,13 +166,23 @@ class RegisterFragment : Fragment() {
                     navigateScreen(HomeFragment())
                 } else {
                     val errorBody = response.errorBody()?.string()
-                    Snackbar.make(requireView(), "Unable to register: $errorBody", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        "Unable to register: $errorBody",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
 
                 }
             }
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                view?.let { Snackbar.make(it, "An unexpected error has occurred ${t.localizedMessage}", Snackbar.LENGTH_SHORT).show() }
 
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "An unexpected error has occurred ${t.localizedMessage}",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
             }
         })
     }
@@ -176,45 +196,35 @@ class RegisterFragment : Fragment() {
         val cnfPassword = view?.findViewById<EditText>(R.id.etCnfPassword)?.text.toString()
 
         return try {
-            // generate salt and hash the password
             CoroutineScope(Dispatchers.Default).launch {
-//                val salt = BCrypt.gensalt()
-//                val hashedPassword = BCrypt.hashpw(password, salt)
-
                 withContext(Dispatchers.Main) {
-                    // create user object and save it to the database
                     if (nativeValidateForm()) {
-                        // check if email and username already exist in the database
+                        // Check if email and username already exist in the database
                         val existingUserWithEmail = appDb.userDao().getUserByEmail(email)
                         val existingUserWithUsername = appDb.userDao().getUserByUsername(username)
 
                         if (existingUserWithEmail != null) {
-                            // email already exists, show error message
-                            Snackbar.make(requireView(), "Email is already taken", Snackbar.LENGTH_SHORT).show()
+                            // Email already exists, show error message
+                            Snackbar.make(
+                                requireView(),
+                                "Email is already taken",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
 
                         } else if (existingUserWithUsername != null) {
-                            // username already exists, show error message
-                            Snackbar.make(requireView(), "Username is already taken", Snackbar.LENGTH_SHORT).show()
+                            // Username already exists, show error message
+                            Snackbar.make(
+                                requireView(),
+                                "Username is already taken",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         } else {
-                            sendUserToServer(id, firstName, lastName, email, username, password, cnfPassword)
-
-                            // email and username are available, insert new user record
-                            // Create a RegisterRequest instance using the user's input data
-                            val registerRequest = RegisterRequest(
-                                0,
-                                firstName,
-                                lastName,
-                                email,
-                                username,
-                                password,
-                                cnfPassword
-                            )
 
                             // Launch a coroutine and call sendUserToServer from within that coroutine
                             CoroutineScope(Dispatchers.Main).launch {
                                 try {
-                                    val registerResponse = sendUserToServer(
-                                        0,
+                                    val registerRequest = RegisterRequest(
+                                        null,
                                         firstName,
                                         lastName,
                                         email,
@@ -222,6 +232,8 @@ class RegisterFragment : Fragment() {
                                         password,
                                         cnfPassword
                                     )
+                                    Log.d("test", "register: about to register $registerRequest")
+                                    appDb.userDao().register(registerRequest)
 
                                     navigateScreen(HomeFragment())
                                     Toast.makeText(
@@ -229,15 +241,21 @@ class RegisterFragment : Fragment() {
                                         "You are now an official Axiom affiliate 🤗.",
                                         Toast.LENGTH_LONG
                                     ).show()
-//                            clearFormIcons()
                                 } catch (e: Exception) {
-                                    Snackbar.make(requireView(), "Unable to register", Snackbar.LENGTH_SHORT).show()
-
+                                    Snackbar.make(
+                                        requireView(),
+                                        "Unable to register",
+                                        Snackbar.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
                         }
                     } else {
-                        Snackbar.make(requireView(), "Please fill in all fields correctly.", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(
+                            requireView(),
+                            "Please fill in all fields correctly.",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
 
                     }
                 }
