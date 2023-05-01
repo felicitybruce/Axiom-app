@@ -7,31 +7,13 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.sun.net.httpserver.HttpServer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.lang.reflect.Type
-import java.net.InetSocketAddress
 
 class MainActivity : AppCompatActivity(), FragmentNavigation {
     companion object {
@@ -55,7 +37,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
 
         // Register fragment is first shown page when clicked
         supportFragmentManager.beginTransaction()
-            .add(R.id.container, RegisterFragment())
+            .add(R.id.container, HomeFragment()) // Change back to RegisterFragment()
             .commit()
     }
 
