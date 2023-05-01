@@ -45,7 +45,7 @@
         android:drawablePadding="16dp"
         android:ems="10"
         android:hint="First name"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textAutoComplete|textCapWords"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +62,7 @@
         android:drawablePadding="16dp"
         android:ems="10"
         android:hint="Last name"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textAutoComplete|textCapWords"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
