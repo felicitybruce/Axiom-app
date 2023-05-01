@@ -68,5 +68,6 @@
         android:ellipsize="end"
         android:maxLines="4"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque placerat lacus quis enim ultrices, et molestie turpis pretium, vehicula sollicitudin ligula. Pnatana lobana ka."
-        android:textColor="@android:color/black" />
+        android:drawableTint="?attr/colorSurfaceInverse"
+        />
 </RelativeLayout>

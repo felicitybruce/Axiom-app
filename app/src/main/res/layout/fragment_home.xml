@@ -1,65 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!-- Note: A RecyclerView can also be used -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
-
-        <TextView
-            android:id="@+id/tvUserDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome back, Felicia"
-            android:textSize="18sp"
-            app:layout_anchorGravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:contentDescription="Nested scroll"
-        android:paddingBottom="100dp">
+        android:layout_margin="@dimen/margin"
+        tools:context=".HomeFragment">
 
-        <!-- Scrollable content -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="100dp"
+                    android:clipToPadding="false" />
 
-    </androidx.core.widget.NestedScrollView>
-
-
+    <!--            app:navigationIcon="@drawable/ic_menu"-->
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-        app:navigationIcon="@drawable/ic_menu"
-        app:menu="@menu/bottom_nav_menu"
-        app:hideOnScroll="true"
-        app:navigationIconTint="@color/md_theme_light_surfaceVariant"
-        />
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:hideOnScroll="true"
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="10dp"
+            app:fabCradleVerticalOffset="10dp"
+            style="@style/Widget.MaterialComponents.BottomAppBar"
+            app:menu="@menu/bottom_nav_menu"
+            />
 
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_feather"
-        app:layout_anchor="@id/bottomAppBar"
-        android:contentDescription="Curate new blog"
-        />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_feather"
+            android:contentDescription="@string/app_name"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:layout_anchor="@id/bottomAppBar"
+            />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

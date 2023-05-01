@@ -1,30 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_blogs_dashboard"
-        android:title="@string/title_dashboard"
+        android:id="@+id/Home"
+        android:iconTint="@color/md_theme_light_inverseOnSurface"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"
         app:showAsAction="always" />
 
-
     <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/ic_search"
+        android:id="@+id/placeholder"
+        android:iconTint="@color/md_theme_light_inverseOnSurface"
         app:showAsAction="always"
-        android:title="@string/title_dashboard" />
+        android:title="" />
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home"
+        android:id="@+id/placeholder2"
+        android:iconTint="@color/md_theme_light_inverseOnSurface"
+        app:showAsAction="always"
+        android:title="" />
 
+
+
+    <item
+        android:id="@+id/Search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:iconTint="@color/md_theme_light_inverseOnSurface"
+        app:showAsAction="always"
+        android:title="Search" />
+
+
+
+
+    <item
+        android:id="@+id/Settings"
+        android:iconTint="@color/md_theme_light_inverseOnSurface"
+        android:icon="@drawable/ic_baseline_settings_24"
+        app:showAsAction="always"
+        android:title="Settings" />
+
+    <item
+        android:id="@+id/Profile"
+        android:iconTint="@color/md_theme_light_inverseOnSurface"
+        android:icon="@drawable/ic_baseline_person_24"
         android:contentDescription="content desc 1"
         app:showAsAction="always"
-        android:title="@string/title_home" />
-
+        android:title="Profile" />
 
 
 
 </menu>
+
+

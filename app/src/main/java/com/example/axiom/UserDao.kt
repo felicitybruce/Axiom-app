@@ -2,11 +2,19 @@ package com.example.axiom
 
 import androidx.room.*
 import com.example.axiom.model.request.RegisterRequest
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun register(registerRequest: RegisterRequest)
+
+
+    @Query("SELECT * from user")
+    fun getUsers(): Flow<List<RegisterRequest>>
+
+    @Query("SELECT * from user WHERE id = :id")
+    fun getUser(id: Int): Flow<RegisterRequest>
 
     @Update
     suspend fun update(registerRequest: RegisterRequest)
@@ -14,8 +22,6 @@ interface UserDao {
     @Delete
     suspend fun delete(registerRequest: RegisterRequest)
 
-    @Query("SELECT * from user")
-    fun getUsers(): List<RegisterRequest>
 
     @Query("SELECT * FROM user WHERE email = :email LIMIT 1")
     suspend fun getUserByEmail(email: String): RegisterRequest

@@ -109,7 +109,7 @@ class RegisterFragment : Fragment() {
     // MAIN CODE
 
 
-    private fun navigateScreen(fragment: Fragment) {
+    fun navigateScreen(fragment: Fragment) {
         val navLogin = activity as FragmentNavigation
         navLogin.navigateFrag(fragment, false)
     }
