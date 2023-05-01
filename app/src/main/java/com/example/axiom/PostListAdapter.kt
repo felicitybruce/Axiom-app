@@ -41,6 +41,7 @@ class PostListAdapter(internal var entities: MutableList<RegisterRequest>) :
         }
     }
 
+    //Row blog
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.row_blog, parent, false)
