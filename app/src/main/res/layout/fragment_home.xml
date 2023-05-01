@@ -8,36 +8,72 @@
 
     <!-- Note: A RecyclerView can also be used -->
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
-
-        <TextView
-            android:id="@+id/tvUserDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome back, Felicia"
-            android:textSize="18sp"
-            app:layout_anchorGravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:contentDescription="Nested scroll"
-        android:paddingBottom="100dp">
+        android:layout_margin="@dimen/margin"
+        tools:context=".ItemListFragment">
 
-        <!-- Scrollable content -->
+        <TextView
+            android:id="@+id/item_name"
+            style="@style/Widget.Axiom.Header"
+            android:layout_marginStart="@dimen/margin_between_elements"
+            android:text="Firstname"
+            app:layout_constraintEnd_toStartOf="@+id/item_price"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.core.widget.NestedScrollView>
+        <TextView
+            android:id="@+id/item_price"
+            style="@style/Widget.Axiom.Header"
+            android:layout_below="@+id/item_name"
+            android:layout_marginStart="@dimen/margin_between_elements"
+            android:text="Username"
+            android:maxLines="1"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/item_quantity"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/item_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_quantity"
+            style="@style/Widget.Axiom.Header"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_between_elements"
+            android:text="@string/home_password"
+            android:maxLines="1"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/item_price"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            style="@style/Divider"
+            android:layout_marginTop="@dimen/margin_between_elements"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_quantity" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <com.google.android.material.bottomappbar.BottomAppBar
