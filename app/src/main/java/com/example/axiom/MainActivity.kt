@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
         setContentView(R.layout.activity_main)
 
 
+
         // Call the sendNotification function when a button is clicked
         val button = findViewById<ImageButton>(R.id.btnNotification)
         button.setOnClickListener {
@@ -85,4 +86,6 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
         val notificationManager = NotificationManagerCompat.from(this)
         notificationManager.notify(notificationId, builder.build())
     }
+
+
 }
