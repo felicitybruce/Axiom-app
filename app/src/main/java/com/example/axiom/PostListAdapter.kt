@@ -13,9 +13,9 @@ class PostListAdapter(internal var entities: MutableList<RegisterRequest>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(registerRequest: RegisterRequest) {
-            itemView.findViewById<TextView>(R.id.user_firstName).text = registerRequest.firstName
-            itemView.findViewById<TextView>(R.id.user_username).text = registerRequest.username
-            itemView.findViewById<TextView>(R.id.user_password).text = registerRequest.password
+            itemView.findViewById<TextView>(R.id.publishInfoTv).text = registerRequest.firstName
+            itemView.findViewById<TextView>(R.id.descriptionTv).text = registerRequest.username
+//            itemView.findViewById<TextView>(R.id.user_password).text = registerRequest.password
 
         }
     }
@@ -43,7 +43,7 @@ class PostListAdapter(internal var entities: MutableList<RegisterRequest>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.post_list_post, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.row_blog, parent, false)
         return ViewHolder(itemView)
     }
 
