@@ -53,6 +53,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val bottomAppBar = view.findViewById<BottomAppBar>(R.id.bottomAppBar)
         bottomAppBar.setNavigationOnClickListener {
             // Handle navigation icon press
