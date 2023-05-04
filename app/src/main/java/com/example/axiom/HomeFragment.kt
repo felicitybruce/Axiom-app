@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomappbar.BottomAppBar
 
-
 class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PostListAdapter
@@ -63,6 +62,11 @@ class HomeFragment : Fragment() {
             when (menuItem.itemId) {
                 R.id.Profile -> {
                     // Handle search icon press
+//                    val action = HomeFragmentDirections.act()
+//                    this.findNavController().navigate(action)
+                    val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+                    this.findNavController().navigate(action)
+
 
                     true
                 }
