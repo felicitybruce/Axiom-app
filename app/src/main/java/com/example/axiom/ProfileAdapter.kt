@@ -51,6 +51,12 @@ class ProfileAdapter(internal var entities: MutableList<RegisterRequest>) :
         holder.bind(entities[position])
     }
 
+
+
+
+
+
+
     override fun getItemCount(): Int {
         return entities.size
     }

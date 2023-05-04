@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -23,8 +23,10 @@ class ProfileFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewProfile)
         adapter = ProfileAdapter(mutableListOf()) // pass the list of entities to the adapter here
 
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter // attach the adapter to the recyclerView
+
+        val layoutManager = GridLayoutManager(requireContext(), 3)
+        recyclerView.layoutManager = layoutManager
 
         // observe the LiveData from the ViewModel and update the adapter accordingly
         val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
@@ -43,10 +45,6 @@ class ProfileFragment : Fragment() {
                 adapter.removeEntity(entityToRemove)
             }
         }
-
         return view
-
     }
-
-
 }
