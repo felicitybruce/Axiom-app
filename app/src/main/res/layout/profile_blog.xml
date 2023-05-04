@@ -13,14 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/blog_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_image_placeholder" />
-
         <TextView
             android:id="@+id/blog_description"
             android:layout_width="match_parent"
@@ -28,7 +20,17 @@
             android:padding="16dp"
             android:text="Blog Title"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-             />
+            />
+
+        <ImageView
+            android:id="@+id/blog_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_self_blog" />
+
+
 
     </LinearLayout>
 
