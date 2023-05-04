@@ -8,16 +8,14 @@
         android:layout_margin="@dimen/margin"
         tools:context=".HomeFragment">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false" />
+<!--            app:navigationIcon="@drawable/ic_menu"-->
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="100dp"
-                    android:clipToPadding="false" />
-
-    <!--            app:navigationIcon="@drawable/ic_menu"-->
     <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"

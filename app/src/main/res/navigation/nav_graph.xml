@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -11,15 +11,16 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            android:id="@+id/action_homeFragment_to_editUserFragment"
+            app:destination="@id/editUserFragment" />
+
     </fragment>
 
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.axiom.ProfileFragment"
+        android:id="@+id/editUserFragment"
+        android:name="com.example.axiom.EditUserFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_edit_user" />
 
     <fragment
         android:id="@+id/registerFragment"

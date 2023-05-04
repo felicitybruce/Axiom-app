@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -72,17 +72,16 @@ class HomeFragment : Fragment() {
                 }
                 R.id.Settings -> {
                     // Handle more item (inside overflow menu) press
-                    val activity = requireActivity() as AppCompatActivity
-                    FragmentUtils.navigateScreen(activity, EditUserFragment())
+//                    val activity = requireActivity() as AppCompatActivity
+//                    FragmentUtils.navigateScreen(activity, EditUserFragment())
+
+
+                    val action = HomeFragmentDirections.actionHomeFragmentToEditUserFragment()
+                    this.findNavController().navigate(action)
                     true
                 }
                 else -> false
             }
         }
     }
-
-
-
-
-
 }
