@@ -1,5 +1,6 @@
 package com.example.axiom
 
+// Internal so it can be accessed by other things in same module
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.axiom.model.request.RegisterRequest
 
 // Internal so it can be accessed by other things in same module
-class PostListAdapter(internal var entities: MutableList<RegisterRequest>) :
-    RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
+class EditUserAdapter(internal var entities: MutableList<RegisterRequest>) :
+    RecyclerView.Adapter<EditUserAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(registerRequest: RegisterRequest) {
-            itemView.findViewById<TextView>(R.id.publishInfoTv).text = registerRequest.firstName
-            itemView.findViewById<TextView>(R.id.descriptionTv).text = registerRequest.username
-//            itemView.findViewById<TextView>(R.id.home_message).text = "gnsgl"+registerRequest.firstName
+            itemView.findViewById<TextView>(R.id.user_firstname).text = registerRequest.firstName
+            itemView.findViewById<TextView>(R.id.user_username).text = registerRequest.username
+            itemView.findViewById<TextView>(R.id.user_password).text = registerRequest.password
 
         }
     }

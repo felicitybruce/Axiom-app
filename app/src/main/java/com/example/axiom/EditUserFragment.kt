@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
@@ -13,19 +14,24 @@ class EditUserFragment : Fragment() {
         fun newInstance() = EditUserFragment()
     }
 
-    private lateinit var viewModel: EditUserViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_edit_user, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_edit_user, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditUserViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+        // Get a reference to the ViewModel
+        val viewModel = ViewModelProvider(this)[EditUserViewModel::class.java]
 
+        // Observe the LiveData from the ViewModel and update the UI accordingly
+        viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
+            // Loop through each entity and update the corresponding TextViews
+            for (entity in entities) {
+                view.findViewById<TextView>(R.id.user_firstname).text = "First name: " + entity.firstName
+                view.findViewById<TextView>(R.id.user_username).text = "Username: " + entity.username
+                view.findViewById<TextView>(R.id.user_password).text = "Password: " + entity.password
+            }
+        }
+        return view
+    }
 }

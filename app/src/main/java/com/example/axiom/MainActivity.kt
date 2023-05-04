@@ -14,19 +14,29 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 
 class MainActivity : AppCompatActivity(), FragmentNavigation {
+
+    private lateinit var navController: NavController
+
     companion object {
         private const val REQUEST_CODE_PERMISSION = 1
         private const val TAG = "MainActivity"
-
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Retrieve NavController from the NavHostFragment
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        // Set up the action bar for use with the NavController
+        NavigationUI.setupActionBarWithNavController(this, navController)
 
 
         // Call the sendNotification function when a button is clicked
@@ -35,21 +45,21 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
             sendNotification(this, "Axiom", "What are you waiting for? Curate your first blog now! \uD83E\uDEB6")
         }
 
-        // Register fragment is first shown page when clicked
-        supportFragmentManager.beginTransaction()
-            .add(R.id.container, HomeFragment()) // Change back to RegisterFragment()
-            .commit()
+//        // Register fragment is first shown page when clicked
+//        supportFragmentManager.beginTransaction()
+//            .add(R.id.container, HomeFragment()) // Change back to RegisterFragment()
+//            .commit()
     }
 
     override fun navigateFrag(fragment: Fragment, addToStack: Boolean) {
-        val transaction = supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, fragment)
-
-        if (addToStack) {
-            transaction.addToBackStack(null)
-        }
-        transaction.commit()
+//        val transaction = supportFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.container, fragment)
+//
+//        if (addToStack) {
+//            transaction.addToBackStack(null)
+//        }
+//        transaction.commit()
     }
 
     // MAIN CODE
@@ -86,5 +96,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
         notificationManager.notify(notificationId, builder.build())
     }
 
-
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 }

@@ -18,7 +18,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.provider.WebAuthProvider
@@ -156,13 +155,15 @@ class RegisterFragment : Fragment() {
                 if (response.isSuccessful) {
                     // create a User object from the registration data
                     val user = RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
+                    val viewModel = AxiomViewModel(requireActivity().application)
+                    viewModel.insert(user)
 
-                    // insert the User object into the Room database
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
-                            appDb.userDao().register(user)
-                        }
-                    }
+//                    // insert the User object into the Room database
+//                    lifecycleScope.launch {
+//                        withContext(Dispatchers.IO) {
+//                            appDb.userDao().register(user)
+//                        }
+//                    }
                     navigateScreen(HomeFragment())
                 } else {
                     val errorBody = response.errorBody()?.string()
