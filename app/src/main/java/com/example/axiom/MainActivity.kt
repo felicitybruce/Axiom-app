@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -17,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 
 class MainActivity : AppCompatActivity(), FragmentNavigation {
 
@@ -32,15 +32,12 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
         setContentView(R.layout.activity_main)
 
         // Retrieve NavController from the NavHostFragment
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
-        if (navHostFragment != null) {
-            navController = navHostFragment.navController
-        } else {
-            // Handle the case when nav_host_fragment is null
-            Log.e(TAG, "NavHostFragment is null")
-            // Alternatively, you could display an error message to the user
-            // using a Toast or Snackbar
-        }
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        // Set up the action bar for use with the NavController
+        NavigationUI.setupActionBarWithNavController(this, navController)
+
 
         // Call the sendNotification function when a button is clicked
         val button = findViewById<ImageButton>(R.id.btnNotification)
