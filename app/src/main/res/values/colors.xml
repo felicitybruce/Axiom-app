@@ -62,4 +62,262 @@
     <color name="md_theme_dark_outlineVariant">#4C4639</color>
     <color name="md_theme_dark_scrim">#000000</color>
     <color name="red_700">#FFD32F2F</color>
+
+<!--    voda-->
+
+
+    <color name="red">#E60000</color>
+    <color name="rateRed">#E60001</color>
+    <color name="darkRed">#F40000</color>
+    <color name="teal_green">#008080</color>>
+    <color name="teal_dark">#00697C</color>>
+    <color name="red_dark">#BD0000</color>
+    <color name="amber_blue">#00B0CA</color>
+    <color name="amber_blue_light">#01B0CA</color>
+    <color name="teal">#007E92</color>
+    <color name="teal_light">#028da3</color>
+    <color name="blue_default_background">#7AA8C4</color>
+    <color name="orange_light">#FEC800</color>
+    <color name="orange_Dark">#E99600</color>
+    <color name="green_light">#A8B400</color>
+    <color name="green_semi_dark">#009900</color>
+    <color name="green_dark">#428600</color>
+    <color name="purple_light">#9C2AA0</color>
+    <color name="purple_dark">#5E2750</color>
+    <color name="black">#000000</color>
+    <color name="black_light">#2A2A2A</color>
+    <color name="blue_to_grey_semi_transparent">#59243537</color>
+    <color name="white">#ffffff</color>
+    <color name="billing_top_bg">#EEFFFFFF</color>
+    <color name="white_70_percent_opacity">#B3FFFFFF</color>
+    <color name="purple_to_grey">#96758E</color>
+    <color name="grey_scale_8">#333333</color>
+    <color name="grey_light">#646464</color>
+    <color name="grey_FBFBFB">#FBFBFB</color>
+    <color name="light_black">#340B0B</color>
+    <color name="gray_474747">#474747</color>
+
+    <!-- Vodafone guideline colors -->
+    <color name="grey_mid">#666666</color>
+    <color name="grey_stroke">#CCCCCC</color>
+    <color name="grey_medium">#525252</color>
+    <color name="grey_pale">#EBEBEB</color>
+    <color name="grey_f2f2f2">#F2F2F2</color>
+    <color name="grey_less_pale">#CBCBCB</color>
+    <color name="black_lightest">#262626</color>
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent">#57757272</color>
+    <color name="white_50_percent_opacity">#80ffffff</color>
+    <color name="white_35_percent_opacity">#50ffffff</color>
+    <color name="purple_opacity">#505E2750</color>
+    <color name="black_90_percent_opacity">#E6000000</color>
+    <color name="black_80_percent_opacity">#CC000000</color>
+    <color name="black_85_percent_opacity">#D9000000</color>
+    <color name="black_70_percent_opacity">#B3000000</color>
+    <color name="black_60_percent_opacity">#99000000</color>
+    <color name="black_50_percent_opacity">#80000000</color>
+    <color name="black_25_percent_opacity">#40000000</color>
+    <color name="bubble_black_color">#263539</color>
+    <color name="grey_dark">#333333</color>
+    <color name="button_disabled_text_color">#B2B2B2</color>
+    <color name="grey_50">#80CCCCCC</color>
+    <color name="grey_60">#99CCCCCC</color>
+    <color name="grey_70">#B3CCCCCC</color>
+    <color name="grey_80">#CCCCCCCC</color>
+    <color name="material_grey">#757575</color>
+    <color name="dimmed_grey">#7E7E7E</color>
+    <color name="material_red">#ef5350</color>
+    <color name="link_colour">#0000cc</color>
+    <color name="consumer_bubble_sent_status_color">#cecece</color>
+    <color name="header_color">#1C333A</color>
+    <!-- Used for textviews selectors -->
+
+    <!-- Used for tooltip -->
+
+    <!-- Toolbar dividers -->
+
+    <!-- Standard list item colors -->
+    <color name="list_item_normal">@color/white</color>
+    <color name="list_item_selected">#fff2f2f2</color>
+
+    <!-- Pin keys -->
+
+    <!-- CircularIcon semi transparent -->
+    <color name="circular_color_filter">#20323232</color>
+
+    <!-- Drawer divider -->
+    <color name="grey_divider">#4A4A4A</color>
+
+    <!-- Help bubble outer color -->
+    <color name="bubble_help_outer_color">#80808080</color>
+
+    <!-- VodafoneSpeedChecker colors -->
+    <color name="speedcheck_textColor">@color/white</color>
+    <color name="speedcheck_backgroundCircleColor">#80c8c6bf</color>
+    <color name="speedcheck_downloadColor">#9B289F</color>
+    <color name="speedcheck_uploadColor">#10AFCA</color>
+
+    <!-- Status bar colors -->
+    <color name="status_bar_background">#333333</color>
+    <color name="status_bar_text_secondary">#999999</color>
+    <color name="status_bar_text_primary">@android:color/white</color>
+
+    <color name="circleProgressCompleteStartGradient">@color/white</color>
+    <color name="circleProgressCompleteEndGradient">@color/white</color>
+
+    <!-- Products and Services-->
+    <color name="products_and_services_header_background">#2B4248</color>
+    <color name="upgradesError">#434343</color>
+    <color name="vodafone_title_bg_color">#1C333A</color>
+
+    <!--Latest Bill-->
+    <color name="bill_primary">#EB9700</color>
+    <color name="bill_secondry">#00B0CA</color>
+    <color name="grid_color">#333333</color>
+    <color name="graph_color">#F4F4F4</color>
+    <color name="graph_yaxis_color">#949494</color>
+    <color name="account_bills_graph_text_color">#333333</color>
+
+    <!--Benefits table icons colors-->
+    <color name="light_on_icon_color">#D0021B</color>
+    <color name="light_off_icon_color">@color/grey_scale_8</color>
+    <color name="dark_off_icon_color">#D50000</color>
+    <color name="dark_on_icon_color">#7ED321</color>
+    <color name="light_lineColor">#CCCCCC</color>
+    <color name="dark_lineColor">#D8D8D8</color>
+    <color name="black_96_percent_opacity">#f2000000</color>
+    <color name="unlike_color">#2C393F</color>
+    <color name="positive_color">#1c8e84</color>
+
+    <!--Inbox-->
+    <color name="deleteActionBackground">#E60000</color>
+    <color name="deleteActionText">@color/white</color>
+    <color name="messageText">#333333</color>
+    <color name="messageDate">#666666</color>
+    <color name="listDivider">#cccccc</color>
+    <color name="monthHeaderText">#333333</color>
+
+    <!--Dashboard-->
+    <color name="very_me_accent">#F89300</color>
+    <color name="dashboard_bg">#F4F2F3</color>
+    <color name="progress_bg">#E5E5E5</color>
+    <color name="textCaption">#9B9B9B</color>
+    <color name="current_charges_topUP_textColor">#E60000</color>
+    <color name="bullets_background">#efefef</color>
+    <color name="dashboard_title">#FF333333</color>
+    <color name="dashboard_primary_text">#FF333333</color>
+
+    <!-- InboxList-->
+    <color name="inbox_list_title_text">#FF000000</color>
+    <color name="inbox_group_date_text_color">#FF333333</color>
+    <color name="inbox_message_title_text_color">#FF333333</color>
+    <color name="inbox_message_time_text_color">#FF444444</color>
+    <color name="inbox_list_divider_color">#FFCCCCCC</color>
+    <color name="message_delete_button_background">#FFE60000</color>
+
+    <!--InboxDetails-->
+    <color name="inbox_details_title_text">@color/inbox_list_title_text</color>
+    <color name="inbox_details_time_text">@color/inbox_message_time_text_color</color>
+
+    <!--Buttons-->
+    <color name="primary_button_color_normal">#E60000</color>
+    <color name="primary_button_color_pressed">#990000</color>
+    <color name="secondary_button_color_normal">#666666</color>
+    <color name="secondary_button_color_pressed">#333333</color>
+    <color name="tertiary_button_color_normal">#FFFFFF</color>
+    <color name="tertiary_button_color_pressed">#F4F4F4</color>
+    <color name="tertiary_button_text_normal">#333333</color>
+    <color name="disabled_button_color">#CCCCCC</color>
+    <color name="disabled_button_text">#FFFFFF</color>
+    <color name="default_button_text">#FFFFFF</color>
+    <color name="tertiary_button_border_normal">#999999</color>
+    <color name="tertiary_button_border_pressed">#333333</color>
+
+
+    <!--TrayPartial-->
+    <color name="tray_partial_title_text_color">#FF000000</color>
+    <color name="rewards_item_background_color">#FFEBEBEB</color>
+    <color name="rewards_item_title_color">#FF333333</color>
+    <color name="color_tray_dark">#202020</color>
+
+    <!--SubSwitch-->
+    <color name="sub_switch_title_text_color">#333333</color>
+    <color name="sub_switch_secondary_title_text_color">#333333</color>
+    <color name="sub_switch_recycler_title_text_color">#000000</color>
+    <color name="subscription_account_spinner_text_color">#666666</color>
+    <color name="subscription_account_spinner_stroke_color">#999999</color>
+    <color name="subscription_account_spinner_background_color">#FFFFFF</color>
+    <color name="subscription_background">#EBEBEB</color>
+    <color name="black_subscription_background">#000000</color>
+    <color name="active_subscription_stroke_color">#428600</color>
+    <color name="normal_subscription_foreground_color">#333333</color>
+    <color name="one_number_background_color">#333333</color>
+    <color name="black_one_number_background_color">#FFFFFF</color>
+    <color name="black_subscription_foreground_color">#FFFFFF</color>
+
+    <!-- Embedded Error -->
+    <color name="error_card_description_text_color">@color/black</color>
+    <!--Shared-->
+    <color name="colorPrimaryText">#000000</color>
+    <color name="colorSecondaryText">#333333</color>
+    <color name="colorTertiaryText">#444444</color>
+    <color name="colorAccentText">#E60000</color>
+
+    <color name="colorGrayBg">#F6F4F5</color>
+    <color name="baseTitledFragmentBg">#F6F4F5</color>
+    <!-- Device permissions -->
+    <color name="permission_item_title_text">#444444</color>
+    <color name="permission_item_state_text_color">#444444</color>
+
+    <!-- Privacy supplement -->
+    <color name="policy_item_title_text_color">#444444</color>
+    <color name="policy_item_content_text_color">#666666</color>
+    <color name="privacy_policy_item_header_text_color">#444444</color>
+    <color name="privacy_policy_item_header_separator_color">#CCCCCC</color>
+    <color name="billing_graph_bar_top_color">#FF0000</color>
+    <color name="billing_graph_bar_center_color">#A90000</color>
+    <color name="billing_graph_bar_bottom_color">#E60000</color>
+
+    <color name="color_fingerprint_tint">#3A3C3D</color>
+    <color name="username_background">#EBEBEB</color>
+    <color name="non_vodafoner_header_bg">#1E0304</color>
+
+
+    <!-- Boosters plan -->
+    <color name="active_green">#428600</color>
+    <color name="select_green">#538426</color>
+    <color name="btn_dark_grey">#4A4D4E</color>
+
+    <!--    welcome screen-->
+    <color name="idm_toggle_on">#4ED164</color>
+    <color name="toggle_off">#D9D9D9</color>
+    <color name="toggle_on">#8C0000</color>
+    <color name="green_toggle_on">#88C461</color>
+    <color name="button_bg_off">#970000</color>
+    <color name="button_text_off">#580B0B</color>
+    <color name="dark_gradient_red">#820000</color>
+    <color name="hint_text">#666666</color>
+
+    <color name="grey_background_gradient_start_color">#FAFAFA</color>
+    <color name="grey_background_gradient_end_color">#F5F5F5</color>
+    <color name="yellow_background">#FECB00</color>
+    <color name="tutorial_image_background_color">#fbfbfb</color>
+    <color name="supplement_privacy_title_color">#323232</color>
+
+    <!--    Billing dashboard-->
+    <color name="selected_bar_text_color">#333333</color>
+    <color name="unselected_bar_text_color">#80333333</color>
+    <color name="vf_graph_bottom_bar">#EBEBEB</color>
+    <color name="graph_bar_indicator_bg">#E60000</color>
+    <color name="more_to_love_indicator_selected">#333333</color>
+    <color name="more_to_love_indicator_unselected">#33333333</color>
+    <color name="extra_manage_card_desc_color">#787878</color>
+    <color name="gray_5">#0D0D0D</color>
+    <color name="disabled_cta_text">#A3A3A3</color>
+    <color name="disabled_cta_border">#AEAEAE</color>
+
+
+    <color name="button_text_color">#535353</color>
+
+
 </resources>
