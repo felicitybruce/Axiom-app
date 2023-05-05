@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/fragmentCreateBlogTrayListDialog"
-        android:name="com.example.axiom.CreateBlogTrayFragment"
+        android:name="com.example.axiom.CreateBlogTray"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_create_blog_tray_list_dialog"/> >
 
