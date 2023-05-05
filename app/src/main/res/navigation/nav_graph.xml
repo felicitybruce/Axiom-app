@@ -17,9 +17,6 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_fragmentCreateBlogTrayListDialog"
-            app:destination="@id/fragmentCreateBlogTrayListDialog" />
 
     </fragment>
 
@@ -46,13 +43,6 @@
             android:id="@+id/action_registerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/fragmentCreateBlogTrayListDialog"
-        android:name="com.example.axiom.CreateBlogTray"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_create_blog_tray_list_dialog"/> >
-
 
 
 </navigation>

@@ -63,12 +63,11 @@ class HomeFragment : Fragment() {
             // Handle navigation icon press
         }
 
-
-        fab.setOnClickListener{
-            val action = HomeFragmentDirections.actionHomeFragmentToFragmentCreateBlogTrayListDialog()
-            findNavController().navigate(action)
+        fab.setOnClickListener {
+            CreateBlogTray.newInstance(30).show(childFragmentManager, "dialog")
 
         }
+        
         bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.Profile -> {
