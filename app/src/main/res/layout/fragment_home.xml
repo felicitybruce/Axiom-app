@@ -30,6 +30,7 @@
             />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/createBlogFAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_feather"
