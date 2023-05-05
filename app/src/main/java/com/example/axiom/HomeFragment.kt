@@ -10,10 +10,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PostListAdapter
+    private lateinit var fab: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +29,9 @@ class HomeFragment : Fragment() {
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Global: Get buttons
+        fab = view.findViewById(R.id.createBlogFAB)
 
         // observe the LiveData from the ViewModel and update the adapter accordingly
         val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
@@ -58,6 +63,12 @@ class HomeFragment : Fragment() {
             // Handle navigation icon press
         }
 
+
+        fab.setOnClickListener{
+            val action = HomeFragmentDirections.actionHomeFragmentToFragmentCreateBlogTrayListDialog()
+            findNavController().navigate(action)
+
+        }
         bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.Profile -> {
