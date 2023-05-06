@@ -19,7 +19,9 @@
     <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="38dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="1dp"
             android:layout_gravity="bottom"
             app:hideOnScroll="true"
             app:fabCradleMargin="10dp"
