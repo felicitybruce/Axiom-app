@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:id="@+id/confirmBlogBackArrow"
+        android:id="@+id/createBlogBackArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/ic_back" />
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/headerText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -31,12 +31,12 @@
         android:textSize="19.28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/confirmBlogBackArrow"
+        app:layout_constraintStart_toEndOf="@+id/createBlogBackArrow"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/confirmBlogXCTA"
+        android:id="@+id/createBlogXCTA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -44,23 +44,23 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/text"
+        app:layout_constraintStart_toEndOf="@+id/headerText"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close" />
 
     <TextView
-        android:id="@+id/confirmScreenControlsTitle"
+        android:id="@+id/createBlogHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:textColor="#000000"
         android:textSize="28.84sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text"
+        app:layout_constraintTop_toBottomOf="@id/headerText"
         tools:text="Create Blog Post" />
 
     <EditText
-        android:id="@+id/confirmBlogText"
+        android:id="@+id/createBlogText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="111dp"
@@ -72,10 +72,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmScreenControlsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/createBlogHeader" />
 
     <TextView
-        android:id="@+id/confirmScreenMoreInformationTitle"
+        android:id="@+id/createBlogContentHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
@@ -85,11 +85,12 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmBlogText"
-        tools:text="Blog Content"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/createBlogText"
+        tools:text="Blog Content">
+    </TextView>
 
     <EditText
-        android:id="@+id/confirmScreenMoreInformationDescription"
+        android:id="@+id/createBlogDescription"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="111dp"
@@ -101,13 +102,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmScreenMoreInformationTitle"
+        app:layout_constraintTop_toBottomOf="@id/createBlogContentHeader"
         tools:text="This is a monthly product which will give you 1GB extra data. It'll renew automatically each month until you remove it. You can opt out at any time.">
 
     </EditText>
 
     <Button
-        android:id="@+id/confirmBlogCTA"
+        android:id="@+id/createBlogCTA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12.92dp"
@@ -117,7 +118,7 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirmScreenMoreInformationDescription">
+        app:layout_constraintTop_toBottomOf="@id/createBlogDescription">
 
     </Button>
 

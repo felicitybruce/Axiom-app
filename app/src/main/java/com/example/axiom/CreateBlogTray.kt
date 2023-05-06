@@ -57,14 +57,14 @@ class CreateBlogTray : BottomSheetDialogFragment() {
         RecyclerView.ViewHolder(binding.root) {
 
 //        internal val text: TextView = binding.text
-        val confirmBlogBackArrow: ImageView = itemView.findViewById(R.id.confirmBlogBackArrow)
-        val text: TextView = itemView.findViewById(R.id.text)
-        val confirmBlogXCTA: ImageView = itemView.findViewById(R.id.confirmBlogXCTA)
-        val confirmScreenControlsTitle: TextView = itemView.findViewById(R.id.confirmScreenControlsTitle)
-        val confirmBlogText: EditText = itemView.findViewById(R.id.confirmBlogText)
-        val confirmScreenMoreInformationTitle: TextView = itemView.findViewById(R.id.confirmScreenMoreInformationTitle)
-        val confirmScreenMoreInformationDescription: EditText = itemView.findViewById(R.id.confirmScreenMoreInformationDescription)
-        val confirmBlogCTA: Button = itemView.findViewById(R.id.confirmBlogCTA)
+        val confirmBlogBackArrow: ImageView = itemView.findViewById(R.id.createBlogBackArrow)
+        val text: TextView = itemView.findViewById(R.id.headerText)
+        val createBlogXCTA: ImageView = itemView.findViewById(R.id.createBlogXCTA)
+        val createBlogHeader: TextView = itemView.findViewById(R.id.createBlogHeader)
+        val createBlogText: EditText = itemView.findViewById(R.id.createBlogText)
+        val createBlogContentHeader: TextView = itemView.findViewById(R.id.createBlogContentHeader)
+        val createBlogDescription: EditText = itemView.findViewById(R.id.createBlogDescription)
+        val createBlogCTA: Button = itemView.findViewById(R.id.createBlogCTA)
 
     }
 
@@ -84,14 +84,14 @@ class CreateBlogTray : BottomSheetDialogFragment() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.confirmScreenControlsTitle.text = "Create Blog Post"
-            holder.confirmBlogText.setText("")
+            holder.createBlogHeader.text = "Create Blog Post"
+            holder.createBlogText.setText("")
 
-            holder.confirmBlogText.hint = "Enter Blog Title"
-            holder.confirmScreenMoreInformationTitle.text = "Blog Content"
+            holder.createBlogText.hint = "Enter Blog Title"
+            holder.createBlogContentHeader.text = "Blog Content"
 
-            holder.confirmScreenMoreInformationDescription.hint = " Blah blah blah"
-            holder.confirmBlogCTA.text = "Post"
+            holder.createBlogDescription.hint = " Blah blah blah"
+            holder.createBlogCTA.text = "Post"
 
         }
 
