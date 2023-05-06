@@ -38,28 +38,14 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
         // Set up the action bar for use with the NavController
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-
         // Call the sendNotification function when a button is clicked
         val button = findViewById<ImageButton>(R.id.btnNotification)
         button.setOnClickListener {
             sendNotification(this, "Axiom", "What are you waiting for? Curate your first blog now! \uD83E\uDEB6")
         }
-
-//        // Register fragment is first shown page when clicked
-//        supportFragmentManager.beginTransaction()
-//            .add(R.id.container, HomeFragment()) // Change back to RegisterFragment()
-//            .commit()
     }
 
     override fun navigateFrag(fragment: Fragment, addToStack: Boolean) {
-//        val transaction = supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.container, fragment)
-//
-//        if (addToStack) {
-//            transaction.addToBackStack(null)
-//        }
-//        transaction.commit()
     }
 
     // MAIN CODE

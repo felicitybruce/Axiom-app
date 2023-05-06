@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.provider.WebAuthProvider
@@ -56,6 +57,8 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+//        // Hide the app bar
+//        requireActivity().actionBar?.hide()
 
         // Room: Init database
         appDb = UserRoomDatabase.getDatabase(requireContext())
@@ -97,7 +100,8 @@ class RegisterFragment : Fragment() {
         }
 
         loginBtn.setOnClickListener {
-            navigateScreen(LoginFragment())
+            val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+            this.findNavController().navigate(action)
         }
 
         return view
@@ -236,7 +240,9 @@ class RegisterFragment : Fragment() {
                                     Log.d("test", "register: about to register $registerRequest")
                                     appDb.userDao().register(registerRequest)
 
-                                    navigateScreen(HomeFragment())
+                                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+                                    findNavController().navigate(action)
+
                                     Toast.makeText(
                                         requireActivity(),
                                         "You are now an official Axiom affiliate 🤗.",
@@ -276,51 +282,42 @@ class RegisterFragment : Fragment() {
         val password = view?.findViewById<EditText>(R.id.etPassword)?.text.toString()
         val cnfPassword = view?.findViewById<EditText>(R.id.etCnfPassword)?.text.toString()
 
-        val icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_warning)
-        icon?.setBounds(0, 0, 50, 50)
-
         var isValid = true
 
         when {
             TextUtils.isEmpty(firstName.trim()) -> {
                 view?.findViewById<EditText>(R.id.etFirstName)?.apply {
                     error = "Please Enter First Name"
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
                     isValid = false
                 }
             }
             TextUtils.isEmpty(lastName.trim()) -> {
                 view?.findViewById<EditText>(R.id.etLastName)?.apply {
                     error = "Please Enter Last Name"
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
                     isValid = false
                 }
             }
             (TextUtils.isEmpty(email.trim())) || !email.matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) -> {
                 view?.findViewById<EditText>(R.id.etEmail)?.apply {
                     error = "Please Enter Email In Correct Format"
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
                     isValid = false
                 }
             }
             TextUtils.isEmpty(username.trim()) -> {
                 view?.findViewById<EditText>(R.id.etUsername)?.apply {
                     error = "Please Enter Username"
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
                     isValid = false
                 }
             }
             TextUtils.isEmpty(password.trim()) || password.length < 5 -> {
                 view?.findViewById<EditText>(R.id.etPassword)?.apply {
                     error = "Please Enter Password Of At Least 5 Characters"
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
                     isValid = false
                 }
             }
             TextUtils.isEmpty(cnfPassword.trim()) || password != cnfPassword -> {
                 view?.findViewById<EditText>(R.id.etCnfPassword)?.apply {
                     error = "Please Ensure Passwords Match"
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
                     isValid = false
                 }
             }

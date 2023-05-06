@@ -13,6 +13,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeFragment : Fragment() {
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PostListAdapter
     private lateinit var fab: FloatingActionButton
@@ -50,7 +51,6 @@ class HomeFragment : Fragment() {
                 adapter.removeEntity(entityToRemove)
             }
         }
-
         return view
     }
 
@@ -65,19 +65,14 @@ class HomeFragment : Fragment() {
 
         fab.setOnClickListener {
             CreateBlogTray.newInstance(30).show(childFragmentManager, "dialog")
-
         }
         
         bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.Profile -> {
                     // Handle search icon press
-//                    val action = HomeFragmentDirections.act()
-//                    this.findNavController().navigate(action)
                     val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
                     this.findNavController().navigate(action)
-
-
                     true
                 }
                 R.id.Home -> {
@@ -86,16 +81,11 @@ class HomeFragment : Fragment() {
                 }
                 R.id.Settings -> {
                     // Handle more item (inside overflow menu) press
-//                    val activity = requireActivity() as AppCompatActivity
-//                    FragmentUtils.navigateScreen(activity, EditUserFragment())
-
-
                     val action = HomeFragmentDirections.actionHomeFragmentToEditUserFragment()
                     this.findNavController().navigate(action)
                     true
                 }
                 else -> false
-
             }
         }
     }
