@@ -96,7 +96,7 @@ class CreateBlogTray : BottomSheetDialogFragment() {
         }
 
         override fun getItemCount(): Int {
-            return mItemCount
+            return 1
         }
     }
 
