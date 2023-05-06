@@ -240,7 +240,8 @@ class RegisterFragment : Fragment() {
                                     Log.d("test", "register: about to register $registerRequest")
                                     appDb.userDao().register(registerRequest)
 
-
+                                    // Set the user data in SharedPreferences
+                                    SharedPreferencesUtil.setUserData(requireContext(), registerRequest)
                                     Toast.makeText(
                                         requireActivity(),
                                         "You are now an official Axiom affiliate 🤗.",

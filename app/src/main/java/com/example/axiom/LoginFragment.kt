@@ -231,19 +231,24 @@ class LoginFragment : Fragment() {
                 appDb.userDao().getUserByEmail(email)
             }
 
-            if (user != null && email == user.email && password == user.password) {
-                Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
+            if (email == user.email) {
+                Toast.makeText(requireContext(), "Email in db", Toast.LENGTH_SHORT).show()
+                if (password == user.password) {
+                    // Save user data in SharedPreferences
+                    val sharedPreferences = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putInt("user_id", user.id ?: -1) // Use -1 as default value if id is null
+                    editor.putString("user_email", user.email)
+                    editor.putString("user_username", user.username)
+                    editor.apply()
 
-                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                findNavController().navigate(action)
+                    Toast.makeText(requireContext(), "whole user!", Toast.LENGTH_SHORT).show()
+                    val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                    findNavController().navigate(action)
 
+                }
             } else {
-                Snackbar.make(
-                    requireView(),
-                    "Invalid email or password.",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-
+                Toast.makeText(requireContext(), "Email not in db", Toast.LENGTH_SHORT).show()
             }
         } else {
             Snackbar.make(
