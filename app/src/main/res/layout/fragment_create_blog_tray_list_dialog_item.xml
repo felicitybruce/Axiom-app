@@ -43,6 +43,7 @@
         android:layout_marginStart="200dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/text"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close" />
@@ -53,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:textColor="#000000"
-        android:textSize="30.84sp"
+        android:textSize="28.84sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text"
         tools:text="Create Blog Post" />
@@ -62,7 +63,6 @@
         android:id="@+id/confirmBlogText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
         android:layout_marginEnd="111dp"
         android:hint="Blog Title"
         android:paddingTop="22dp"
@@ -70,35 +70,40 @@
         android:textColor="@color/grey_dark"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmScreenControlsTitle" />
-
 
     <TextView
         android:id="@+id/confirmScreenMoreInformationTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
+        android:layout_marginEnd="111dp"
         android:textColor="@color/grey_dark"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/confirmBlogText"
-        tools:text="Blog Content">
-
-    </TextView>
+        tools:text="Blog Content"></TextView>
 
     <EditText
         android:id="@+id/confirmScreenMoreInformationDescription"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:maxLines="26"
+        android:layout_marginEnd="111dp"
+        android:hint="Blog Title"
+        android:paddingTop="22dp"
+        android:paddingBottom="22dp"
         android:textColor="@color/grey_dark"
-        app:layout_constraintTop_toBottomOf="@id/confirmScreenMoreInformationTitle"
-        app:layout_constraintStart_toStartOf="parent"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/confirmScreenMoreInformationTitle"
         tools:text="This is a monthly product which will give you 1GB extra data. It'll renew automatically each month until you remove it. You can opt out at any time.">
+
     </EditText>
 
     <Button
