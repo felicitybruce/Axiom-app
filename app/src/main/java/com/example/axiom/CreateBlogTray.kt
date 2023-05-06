@@ -57,7 +57,6 @@ class CreateBlogTray : BottomSheetDialogFragment() {
         RecyclerView.ViewHolder(binding.root) {
 
 //        internal val text: TextView = binding.text
-        val confirmBlogBackArrow: ImageView = itemView.findViewById(R.id.createBlogBackArrow)
         val text: TextView = itemView.findViewById(R.id.headerText)
         val createBlogXCTA: ImageView = itemView.findViewById(R.id.createBlogXCTA)
         val createBlogHeader: TextView = itemView.findViewById(R.id.createBlogHeader)
