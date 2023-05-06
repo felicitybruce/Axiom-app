@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,15 +23,10 @@ import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.callback.Callback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
-import com.example.axiom.client.ApiClient
-import com.example.axiom.model.request.LoginRequest
-import com.example.axiom.model.response.LoginResponse
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Response
 
 
 class LoginFragment : Fragment() {
@@ -60,7 +56,7 @@ class LoginFragment : Fragment() {
         )
 
         email = view.findViewById(R.id.etLoginUsernameOrEmail)!!
-        email = view.findViewById(R.id.etLoginPassword)!!
+        password = view.findViewById(R.id.etLoginPassword)!!
 
 
         // Colourful Google TV
@@ -139,7 +135,7 @@ class LoginFragment : Fragment() {
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
             lifecycleScope.launch {
-                login(emailLog.text.toString(), passwordLog.text.toString())
+                login()
 
             }
         }
@@ -226,35 +222,29 @@ class LoginFragment : Fragment() {
 //
 //    }
 
-    private suspend fun login(email: String, plainTextPw: String) {
+    private suspend fun login() {
+        val email = view?.findViewById<EditText>(R.id.etLoginUsernameOrEmail)?.text.toString()
+        val password = view?.findViewById<EditText>(R.id.etLoginPassword)?.text.toString()
 
         if (nativeValidateForm()) {
             val user = withContext(Dispatchers.IO) {
                 appDb.userDao().getUserByEmail(email)
             }
 
-            val loginRequest = LoginRequest(email, plainTextPw)
-            val apiCall = ApiClient.getApiService().loginUser(loginRequest)
-            apiCall.enqueue(object : retrofit2.Callback<LoginResponse> {
-                override fun onResponse(
-                    call: Call<LoginResponse>,
-                    response: Response<LoginResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        var navLogin = activity as FragmentNavigation
-                        navLogin.navigateFrag(HomeFragment(), false)
-                    } else {
-                        showSnackBar(
-                            "Unable to login. Please check your credentials and \n" +
-                                    "try again."
-                        )
-                    }
-                }
+            if (user != null && email == user.email && password == user.password) {
+                Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show()
 
-                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    showSnackBar("An error occured ${t.localizedMessage}")
-                }
-            })
+                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                findNavController().navigate(action)
+
+            } else {
+                Snackbar.make(
+                    requireView(),
+                    "Invalid email or password.",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+
+            }
         } else {
             Snackbar.make(
                 requireView(),

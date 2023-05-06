@@ -240,14 +240,16 @@ class RegisterFragment : Fragment() {
                                     Log.d("test", "register: about to register $registerRequest")
                                     appDb.userDao().register(registerRequest)
 
-                                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-                                    findNavController().navigate(action)
 
                                     Toast.makeText(
                                         requireActivity(),
                                         "You are now an official Axiom affiliate 🤗.",
                                         Toast.LENGTH_LONG
                                     ).show()
+
+                                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+                                    findNavController().navigate(action)
+
                                 } catch (e: Exception) {
                                     Snackbar.make(
                                         requireView(),
