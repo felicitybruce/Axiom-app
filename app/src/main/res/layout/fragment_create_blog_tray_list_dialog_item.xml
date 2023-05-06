@@ -62,5 +62,61 @@
         android:textSize="30.84sp"
         tools:text="Create Blog Post"/>
 
+    <EditText
+        android:id="@+id/confirmBlogText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="111dp"
+        android:hint="Blog Title"
+        android:paddingTop="22dp"
+        android:paddingBottom="22dp"
+        android:textColor="@color/grey_dark"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmScreenControlsTitle" />
+
+
+    <TextView
+        android:id="@+id/confirmScreenMoreInformationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey_dark"
+        android:layout_marginTop="14dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/confirmBlogText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
+        tools:text="Blog Content">
+    </TextView>
+
+    <EditText
+        android:id="@+id/confirmScreenMoreInformationDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/grey_dark"
+        app:layout_constraintTop_toBottomOf="@id/confirmScreenMoreInformationTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
+        tools:text="This is a monthly product which will give you 1GB extra data. It'll renew automatically each month until you remove it. You can opt out at any time.">
+    </EditText>
+
+    <Button
+        android:id="@+id/confirmBlogCTA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12.92dp"
+        android:backgroundTint="@color/md_theme_light_primary"
+        android:contentDescription="Post button"
+        android:text="Post"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/confirmScreenMoreInformationDescription">
+
+    </Button>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

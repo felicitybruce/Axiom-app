@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +37,7 @@ class CreateBlogTray : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentCreateBlogTrayListDialogBinding.inflate(inflater, container, false)
         return binding.root
@@ -42,16 +45,27 @@ class CreateBlogTray : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        activity?.findViewById<RecyclerView>(R.id.list)?.layoutManager =
-            LinearLayoutManager(context)
-        activity?.findViewById<RecyclerView>(R.id.list)?.adapter =
-            arguments?.getInt(ARG_ITEM_COUNT)?.let { ItemAdapter(it) }
+        super.onViewCreated(view, savedInstanceState)
+
+        // Set up the RecyclerView to display a list of items
+        binding.list.layoutManager = LinearLayoutManager(context)
+        binding.list.adapter = arguments?.getInt(ARG_ITEM_COUNT)?.let { ItemAdapter(it) }
     }
+
 
     private inner class ViewHolder internal constructor(binding: FragmentCreateBlogTrayListDialogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        internal val text: TextView = binding.text
+//        internal val text: TextView = binding.text
+        val confirmBlogBackArrow: ImageView = itemView.findViewById(R.id.confirmBlogBackArrow)
+        val text: TextView = itemView.findViewById(R.id.text)
+        val confirmBlogXCTA: ImageView = itemView.findViewById(R.id.confirmBlogXCTA)
+        val confirmScreenControlsTitle: TextView = itemView.findViewById(R.id.confirmScreenControlsTitle)
+        val confirmBlogText: EditText = itemView.findViewById(R.id.confirmBlogText)
+        val confirmScreenMoreInformationTitle: TextView = itemView.findViewById(R.id.confirmScreenMoreInformationTitle)
+        val confirmScreenMoreInformationDescription: EditText = itemView.findViewById(R.id.confirmScreenMoreInformationDescription)
+        val confirmBlogCTA: Button = itemView.findViewById(R.id.confirmBlogCTA)
+
     }
 
     private inner class ItemAdapter internal constructor(private val mItemCount: Int) :
@@ -70,7 +84,15 @@ class CreateBlogTray : BottomSheetDialogFragment() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.text.text = position.toString()
+            holder.confirmScreenControlsTitle.text = "Create Blog Post"
+            holder.confirmBlogText.setText("")
+
+            holder.confirmBlogText.hint = "Enter Blog Title"
+            holder.confirmScreenMoreInformationTitle.text = "Blog Content"
+
+            holder.confirmScreenMoreInformationDescription.hint = " Blah blah blah"
+            holder.confirmBlogCTA.text = "Post"
+
         }
 
         override fun getItemCount(): Int {
