@@ -222,6 +222,8 @@ class LoginFragment : Fragment() {
 //
 //    }
 
+
+
     private suspend fun login() {
         val email = view?.findViewById<EditText>(R.id.etLoginUsernameOrEmail)?.text.toString()
         val password = view?.findViewById<EditText>(R.id.etLoginPassword)?.text.toString()
@@ -231,24 +233,22 @@ class LoginFragment : Fragment() {
                 appDb.userDao().getUserByEmail(email)
             }
 
-            if (email == user.email) {
-                Toast.makeText(requireContext(), "Email in db", Toast.LENGTH_SHORT).show()
-                if (password == user.password) {
-                    // Save user data in SharedPreferences
-                    val sharedPreferences = requireContext().getSharedPreferences("user_data", Context.MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    editor.putInt("user_id", user.id ?: -1) // Use -1 as default value if id is null
-                    editor.putString("user_email", user.email)
-                    editor.putString("user_username", user.username)
-                    editor.apply()
+            if (user != null && email == user.email && password == user.password) {
+                // Create a User object using the retrieved user data
 
-                    Toast.makeText(requireContext(), "whole user!", Toast.LENGTH_SHORT).show()
-                    val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                    findNavController().navigate(action)
+                val editor = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).edit()
+                editor.putString("email", user.email)
+                editor.putString("firstName", user.firstName)
+                editor.putString("lastName", user.lastName)
+                editor.apply()
 
-                }
+
+                Toast.makeText(requireContext(), "whole user!", Toast.LENGTH_SHORT).show()
+                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                findNavController().navigate(action)
+
             } else {
-                Toast.makeText(requireContext(), "Email not in db", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Email or password is incorrect", Toast.LENGTH_SHORT).show()
             }
         } else {
             Snackbar.make(

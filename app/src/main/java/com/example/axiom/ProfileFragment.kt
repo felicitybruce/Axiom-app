@@ -1,5 +1,6 @@
 package com.example.axiom
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,13 +31,23 @@ class ProfileFragment : Fragment() {
 
         // Get a reference to the ViewModel
         val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
-        val profileName = view.findViewById<TextView>(R.id.profile_name)
+//        val profileName = view.findViewById<TextView>(R.id.profile_name)
 //        val profileBio = view.findViewById<TextView>(R.id.profile_bio)
+
+
+        val sharedPrefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val email = sharedPrefs.getString("email", "")
+        val firstName = sharedPrefs.getString("firstName", "")
+        val lastName = sharedPrefs.getString("lastName", "")
+        val profileName = view.findViewById<TextView>(R.id.profile_name)
+        profileName.text = "$firstName $lastName"
+
+
         // Observe the LiveData from the ViewModel and update the UI accordingly
         viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
             // Loop through each entity and update the corresponding TextViews
             for (entity in entities) {
-                profileName.text = entity.firstName + " " + entity.lastName
+//                profileName.text = entity.firstName + " " + entity.lastName
 //                profileBio.text = "bio stuff"
                 if (!adapter.entities.contains(entity)) {
                     adapter.addEntity(entity)

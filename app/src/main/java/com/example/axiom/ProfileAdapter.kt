@@ -48,6 +48,7 @@ class ProfileAdapter(val entities: MutableList<RegisterRequest>) : RecyclerView.
 
         fun bind(entity: RegisterRequest) {
 //            blogTitle.text = entity.email
+
             itemView.findViewById<TextView>(R.id.blog_title).text = "Money Is Good?"
         }
     }
