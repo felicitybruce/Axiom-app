@@ -44,10 +44,11 @@ class ProfileAdapter(val entities: MutableList<RegisterRequest>) : RecyclerView.
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val nameTextView: TextView = itemView.findViewById(R.id.profile_name)
+///        private val nameTextView: TextView = itemView.findViewById(R.id.profile_name)
 
         fun bind(entity: RegisterRequest) {
-            nameTextView.text = entity.firstName
+//            blogTitle.text = entity.email
+            itemView.findViewById<TextView>(R.id.blog_description).text = "ted"
         }
     }
 }

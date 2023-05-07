@@ -1,74 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profile_layout"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/profile_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_profile_pic_placeholder"
-        android:scaleType="centerCrop"
-        android:contentDescription="user pic"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/profile_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintHorizontal_bias="0.5" />
-
     <TextView
-        android:id="@+id/profile_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/blog_description"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Felicity Bruce (placeholder)"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
-
-    <TextView
-        android:id="@+id/profile_bio"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut consequat."
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintTop_toBottomOf="@+id/profile_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintHorizontal_bias="0.5"
         android:padding="16dp"
-         />
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Blog Title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        />
 
-    <View
-        android:id="@+id/divider"
-        style="@style/Divider"
-        android:layout_marginTop="@dimen/margin_between_elements"
-        app:layout_constraintTop_toBottomOf="@id/profile_bio"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <ImageView
+        android:id="@+id/blog_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_image_placeholder" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProfile"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="16dp"
+        android:layout_height="match_parent"
         android:clipToPadding="true"
+        android:padding="16dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:spanCount="3" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"
+        app:spanCount="3"
+        />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 
