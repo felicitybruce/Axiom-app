@@ -30,13 +30,13 @@ class ProfileFragment : Fragment() {
 
         // Get a reference to the ViewModel
         val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
-        val profileName = view.findViewById<TextView>(R.id.blog_description)
+        val profileName = view.findViewById<TextView>(R.id.profile_name)
 //        val profileBio = view.findViewById<TextView>(R.id.profile_bio)
         // Observe the LiveData from the ViewModel and update the UI accordingly
         viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
             // Loop through each entity and update the corresponding TextViews
             for (entity in entities) {
-//                profileName.text = entity.firstName + " " + entity.lastName
+                profileName.text = entity.firstName + " " + entity.lastName
 //                profileBio.text = "bio stuff"
                 if (!adapter.entities.contains(entity)) {
                     adapter.addEntity(entity)
