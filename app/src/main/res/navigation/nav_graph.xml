@@ -21,13 +21,13 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.axiom.ProfileFragment"
-        android:label="@string/title_notifications"
+        android:label="My Profile Page"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/editUserFragment"
         android:name="com.example.axiom.EditUserFragment"
-        android:label="@string/title_dashboard"
+        android:label="Settings"
         tools:layout="@layout/fragment_edit_user" />
 
     <fragment
