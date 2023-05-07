@@ -8,11 +8,10 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="129dp"
         android:layout_height="match_parent"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
-        android:layout_margin="10dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -34,8 +33,10 @@
 
             <ImageView
                 android:id="@+id/blog_image"
-                android:layout_width="match_parent"
+                android:layout_width="108dp"
                 android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_image_placeholder" />
