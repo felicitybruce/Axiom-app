@@ -10,7 +10,7 @@ import com.example.axiom.model.request.RegisterRequest
 class ProfileAdapter(val entities: MutableList<RegisterRequest>) : RecyclerView.Adapter<ProfileAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_profile, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.profile_blog, parent, false)
         return ViewHolder(view)
     }
 
