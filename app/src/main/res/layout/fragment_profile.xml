@@ -8,25 +8,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/blog_description"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_profile_pic_placeholder" />
+
+
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:padding="16dp"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="Blog Title"
+        android:text="My Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         />
 
-    <ImageView
-        android:id="@+id/blog_image"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/profile_bio"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_profile_pic_placeholder" />
+        android:text="Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit, sed do eiusmod tempor incididunt ut consequat."
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintTop_toBottomOf="@+id/profile_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:padding="16dp"
+        />
+
+    <View
+        android:id="@+id/divider"
+        style="@style/Divider"
+        android:layout_marginTop="@dimen/margin_between_elements"
+        app:layout_constraintTop_toBottomOf="@id/profile_bio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
 
 
     <androidx.recyclerview.widget.RecyclerView
