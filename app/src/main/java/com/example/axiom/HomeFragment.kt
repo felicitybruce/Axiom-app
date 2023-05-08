@@ -15,27 +15,29 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class HomeFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PostListAdapter
+    private lateinit var adapter: HomeAdapter
     private lateinit var fab: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+        // Get a reference to the ViewModel
+        val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
+
 
         recyclerView = view.findViewById(R.id.recyclerView)
-        adapter = PostListAdapter(mutableListOf()) // pass the list of entities to the adapter here
-
+        // Pass the list of entities to the adapter here
+        adapter = HomeAdapter(mutableListOf())
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-
-        // Global: Get buttons
         fab = view.findViewById(R.id.createBlogFAB)
 
-        // observe the LiveData from the ViewModel and update the adapter accordingly
-        val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
+
+        // Observe the LiveData from the ViewModel and update the adapter accordingly
         viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
             for (entity in entities) {
                 if (!adapter.entities.contains(entity)) {
@@ -53,7 +55,6 @@ class HomeFragment : Fragment() {
         }
         return view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

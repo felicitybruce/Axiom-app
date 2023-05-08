@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.axiom.model.request.RegisterRequest
 
 // Internal so it can be accessed by other things in same module
-class PostListAdapter(internal var entities: MutableList<RegisterRequest>) :
-    RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
+class HomeAdapter(internal var entities: MutableList<RegisterRequest>) :
+    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(registerRequest: RegisterRequest) {

@@ -8,24 +8,18 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
-class EditUserFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = EditUserFragment()
-    }
+class SettingsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_edit_user, container, false)
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
         // Get a reference to the ViewModel
         val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
-
-
-
 
         // Observe the LiveData from the ViewModel and update the UI accordingly
         viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
