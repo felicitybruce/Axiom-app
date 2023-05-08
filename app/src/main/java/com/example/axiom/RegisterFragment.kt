@@ -7,7 +7,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -134,40 +133,28 @@ class RegisterFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 } else {
-                    try {
-                        val registerRequest = RegisterRequest(
-                            null,
-                            firstName,
-                            lastName,
-                            email,
-                            username,
-                            password,
-                            cnfPassword
-                        )
-                        Log.d("test", "register: about to register $registerRequest")
-                        appDb.userDao().register(registerRequest)
+                    val registerRequest = RegisterRequest(
+                        null,
+                        firstName,
+                        lastName,
+                        email,
+                        username,
+                        password,
+                        cnfPassword
+                    )
 
-                        clearEditTexts()
+                    appDb.userDao().register(registerRequest)
 
-                        // Set the user data in SharedPreferences
-                        // SharedPreferencesUtil.setUserData(requireContext(), registerRequest)
+                    clearEditTexts()
 
-                        Toast.makeText(
-                            requireActivity(),
-                            "You are now an official Axiom affiliate 🤗.",
-                            Toast.LENGTH_LONG
-                        ).show()
+                    Toast.makeText(
+                        requireActivity(),
+                        "You are now an official Axiom affiliate 🤗.",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-                        val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-                        findNavController().navigate(action)
-
-                    } catch (e: Exception) {
-                        Snackbar.make(
-                            requireView(),
-                            "Unable to register",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
+                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+                    findNavController().navigate(action)
                 }
             }
         } else {
