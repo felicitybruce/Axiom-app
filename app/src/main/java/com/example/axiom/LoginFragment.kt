@@ -143,78 +143,8 @@ class LoginFragment : Fragment() {
         return view
     }
 
+
     // MAIN CODE
-    private fun loginWithBrowser() {
-        // Setup the WebAuthProvider, using the custom scheme and scope.
-        WebAuthProvider.login(account)
-            .withScheme(getString(R.string.com_auth0_scheme))
-            .withScope("openid profile email read:current_user update:current_user_metadata")
-            .withAudience("https://${getString(R.string.com_auth0_domain)}/api/v2/")
-
-            // Launch the authentication passing the callback where the results will be received
-            .start(requireContext(), object : Callback<Credentials, AuthenticationException> {
-                override fun onFailure(error: AuthenticationException) {
-                    showSnackBar("Failure: ${error.getCode()}")
-                }
-
-                override fun onSuccess(result: Credentials) {
-                    val accessToken = result.accessToken
-                    showSnackBar("Success: ${result.accessToken}")
-                    var navLogin = activity as FragmentNavigation
-                    navLogin.navigateFrag(HomeFragment(), false)
-
-                }
-            })
-    }
-
-    private val JWT_SECRET = BuildConfig.MY_SECRET
-
-//    private suspend fun tokenisation() {
-//        val JWT_SECRET = BuildConfig.MY_SECRET
-//
-//
-//        // Format xxx.xxxx.xxx
-//        //      algorithm/token type -> payload/user data -> signature that tells us if the person is verified
-//        val token = JWT.create()
-//            .withClaim("username", emailLog.text.toString())
-//            .withClaim("password", passwordLog.text.toString())
-//            //SIGNING
-//            // Once user authenticated via username & pw, grant token that has encrypted signature
-//            // to verify that they are who they say on
-//            //future requests
-//            .sign(Algorithm.HMAC256(JWT_SECRET))
-//
-//        Log.d("jwt", "3 part token $token")
-//        showSnackBar("Thanks for signing in! Here is your token: $token")
-//
-//
-//        val verifier = JWT.require(Algorithm.HMAC256(JWT_SECRET))
-//            .withClaim("username", emailLog.text.toString())
-//            .build()
-//
-//        // returns a DecodedJWT object
-//        // To know if we can trust the log in request
-//        // -decrypt signature
-//        // -check expiration
-//        // -decode payload
-//        val decodedJwt = JWT.decode(token)
-//        //can then access the individual claims or fields from
-//        // the decoded JWT using the getter methods provided by the DecodedJWT object
-//        val password = decodedJwt.getClaim("password").asString()
-//        val username = decodedJwt.getClaim("username").asString()
-//
-//        Log.d("jwt", "decoded jwt $decodedJwt, password $password, username $username")
-//
-//
-//        Log.d("jwt", "my secret from gradle $JWT_SECRET")
-//
-//        val email = emailLog.text.toString()
-//        val user = withContext(Dispatchers.IO) {
-//            appDb.userDao().getUserByEmail(email)
-//        }
-//
-//    }
-
 
 
     private suspend fun login() {
@@ -247,6 +177,29 @@ class LoginFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             ).show()
         }
+    }
+
+    private fun loginWithBrowser() {
+        // Setup the WebAuthProvider, using the custom scheme and scope.
+        WebAuthProvider.login(account)
+            .withScheme(getString(R.string.com_auth0_scheme))
+            .withScope("openid profile email read:current_user update:current_user_metadata")
+            .withAudience("https://${getString(R.string.com_auth0_domain)}/api/v2/")
+
+            // Launch the authentication passing the callback where the results will be received
+            .start(requireContext(), object : Callback<Credentials, AuthenticationException> {
+                override fun onFailure(error: AuthenticationException) {
+                    showSnackBar("Failure: ${error.getCode()}")
+                }
+
+                override fun onSuccess(result: Credentials) {
+                    val accessToken = result.accessToken
+                    showSnackBar("Success: ${result.accessToken}")
+                    var navLogin = activity as FragmentNavigation
+                    navLogin.navigateFrag(HomeFragment(), false)
+
+                }
+            })
     }
 
     private fun nativeValidateForm(): Boolean {

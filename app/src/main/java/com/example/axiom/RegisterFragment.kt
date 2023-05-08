@@ -23,8 +23,6 @@ import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
-import com.auth0.jwt.JWT
-import com.auth0.jwt.algorithms.Algorithm
 import com.example.axiom.model.request.RegisterRequest
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -105,86 +103,6 @@ class RegisterFragment : Fragment() {
 
 
     // MAIN CODE
-
-
-
-    private fun hideKeyboard() {
-        val inputMethodManager =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
-    }
-
-    private val JWT_SECRET = BuildConfig.MY_SECRET
-
-    private fun generateJwt() {
-        val token = JWT.create()
-            .withClaim("email", email.toString())
-            .withClaim("password", password.toString())
-            //SIGNING
-            // Once user authenticated via username & pw, grant token that has encrypted signature
-            // to verify that they are who they say on
-            //future requests
-            .sign(Algorithm.HMAC256(JWT_SECRET))
-    }
-
-//    private suspend fun sendUserToServer(
-//        id: Int,
-//        firstName: String,
-//        lastName: String,
-//        email: String,
-//        username: String,
-//        password: String,
-//        cnfPassword: String
-//    ) {
-//        val user =
-//            RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
-//
-//        // API call
-//        val apiCall = ApiClient.getApiService().registerUser(user)
-//
-//        apiCall.enqueue(object : RetrofitCallback<RegisterResponse> {
-//            override fun onResponse(
-//                call: Call<RegisterResponse>,
-//                response: Response<RegisterResponse>
-//            ) {
-//                if (response.isSuccessful) {
-//                    // create a User object from the registration data
-//                    val user = RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
-//                    val viewModel = AxiomViewModel(requireActivity().application)
-//                    viewModel.insert(user)
-//
-////                    // insert the User object into the Room database
-////                    lifecycleScope.launch {
-////                        withContext(Dispatchers.IO) {
-////                            appDb.userDao().register(user)
-////                        }
-////                    }
-//                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-//                    findNavController().navigate(action)
-//
-//
-//                } else {
-//                    val errorBody = response.errorBody()?.string()
-//                    Snackbar.make(
-//                        requireView(),
-//                        "Unable to register: $errorBody",
-//                        Snackbar.LENGTH_SHORT
-//                    ).show()
-//
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-//                view?.let {
-//                    Snackbar.make(
-//                        it,
-//                        "An unexpected error has occurred ${t.localizedMessage}",
-//                        Snackbar.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//        })
-//    }
 
 
     private fun register(): Boolean {
@@ -275,6 +193,9 @@ class RegisterFragment : Fragment() {
             false
         }
     }
+
+
+
 
     private fun nativeValidateForm(): Boolean {
         val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()
@@ -426,6 +347,11 @@ class RegisterFragment : Fragment() {
 
     }
 
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
 
 
 }
