@@ -133,6 +133,7 @@ class RegisterFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 } else {
+
                     val registerRequest = RegisterRequest(
                         null,
                         firstName,
@@ -165,9 +166,6 @@ class RegisterFragment : Fragment() {
             ).show()
         }
     }
-
-
-
 
     private fun nativeValidateForm(): Boolean {
         val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()

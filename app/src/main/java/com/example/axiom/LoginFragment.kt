@@ -163,12 +163,12 @@ class LoginFragment : Fragment() {
                 emailLog.setText("")
                 passwordLog.setText("")
 
-                Toast.makeText(requireContext(), "whole user!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "whole user! ${user.firstName}", Toast.LENGTH_SHORT).show()
                 val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                 findNavController().navigate(action)
 
             } else {
-                Toast.makeText(requireContext(), "Email or password is incorrect", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Email or password is incorrect.", Toast.LENGTH_SHORT).show()
             }
         } else {
             Snackbar.make(

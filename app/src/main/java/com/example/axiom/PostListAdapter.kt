@@ -15,8 +15,6 @@ class PostListAdapter(internal var entities: MutableList<RegisterRequest>) :
         fun bind(registerRequest: RegisterRequest) {
             itemView.findViewById<TextView>(R.id.publishInfoTv).text = registerRequest.firstName
             itemView.findViewById<TextView>(R.id.descriptionTv).text = registerRequest.username
-//            itemView.findViewById<TextView>(R.id.home_message).text = "gnsgl"+registerRequest.firstName
-
         }
     }
 

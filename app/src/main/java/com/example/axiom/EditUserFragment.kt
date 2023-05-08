@@ -18,6 +18,7 @@ class EditUserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_edit_user, container, false)
 
         // Get a reference to the ViewModel
