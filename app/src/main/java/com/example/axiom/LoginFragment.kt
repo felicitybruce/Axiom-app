@@ -167,13 +167,6 @@ class LoginFragment : Fragment() {
             })
     }
 
-    private fun clearFormIcons() {
-        view?.findViewById<EditText>(R.id.etLoginUsernameOrEmail)?.text?.clear()
-        view?.findViewById<EditText>(R.id.etLoginPassword)?.text?.clear()
-
-        //view?.findViewById<EditText>(R.id.etLoginUsernameOrEmail)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-        //view?.findViewById<EditText>(R.id.etLoginPassword)?.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-    }
     private val JWT_SECRET = BuildConfig.MY_SECRET
 
 //    private suspend fun tokenisation() {
@@ -236,12 +229,9 @@ class LoginFragment : Fragment() {
             if (user != null && email == user.email && password == user.password) {
                 // Create a User object using the retrieved user data
 
-                val editor = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).edit()
-                editor.putString("email", user.email)
-                editor.putString("firstName", user.firstName)
-                editor.putString("lastName", user.lastName)
-                editor.apply()
-
+                // Clear text fields
+                emailLog.setText("")
+                passwordLog.setText("")
 
                 Toast.makeText(requireContext(), "whole user!", Toast.LENGTH_SHORT).show()
                 val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
@@ -290,6 +280,3 @@ class LoginFragment : Fragment() {
         ).show()
     }
 }
-// TODO: 1)LOGIN ALWAYS RETURNS TRUE EVEN IF PASSWORD IS WRONG. OK FOR IF EMAIL IS WRONG
-// TODO: 2) JWT: ACTUAL AUTH PROCESS - DON'T HAVE TO KEEP SIGINING IN - CREATE BACKEND IN JAVASCRIPT
-// TODO: 3)

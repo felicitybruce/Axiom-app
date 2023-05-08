@@ -7,11 +7,12 @@ import com.example.axiom.model.request.RegisterRequest
 
 class AxiomRepository(application: Application) {
     private val userDao: UserDao = UserRoomDatabase.getDatabase(application).userDao()
+
     val allEntities: LiveData<List<RegisterRequest>> = userDao.getUsers().asLiveData()
 
-    suspend fun insert(registerRequest: RegisterRequest) {
-        userDao.register(registerRequest)
-    }
+//    suspend fun insert(registerRequest: RegisterRequest) {
+//        userDao.register(registerRequest)
+//    }
 
     suspend fun update(registerRequest: RegisterRequest) {
         userDao.update(registerRequest)

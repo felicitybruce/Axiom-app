@@ -21,15 +21,18 @@ class EditUserFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_edit_user, container, false)
 
         // Get a reference to the ViewModel
-        val viewModel = ViewModelProvider(this)[EditUserViewModel::class.java]
+        val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
+
+
+
 
         // Observe the LiveData from the ViewModel and update the UI accordingly
         viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
             // Loop through each entity and update the corresponding TextViews
             for (entity in entities) {
-                view.findViewById<TextView>(R.id.user_firstname).text = "First name: " + entity.firstName
-                view.findViewById<TextView>(R.id.user_username).text = "Username: " + entity.username
-                view.findViewById<TextView>(R.id.user_password).text = "Password: " + entity.password
+                view.findViewById<TextView>(R.id.user_firstname).text = "First name: ${entity.firstName}"
+                view.findViewById<TextView>(R.id.user_username).text = "Username: ${entity.username}"
+                view.findViewById<TextView>(R.id.user_password).text = "Password: ${entity.password}"
             }
         }
         return view

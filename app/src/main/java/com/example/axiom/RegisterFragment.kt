@@ -25,18 +25,13 @@ import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.example.axiom.client.ApiClient
 import com.example.axiom.model.request.RegisterRequest
-import com.example.axiom.model.response.RegisterResponse
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Response
 import com.auth0.android.callback.Callback as Auth0Callback
-import retrofit2.Callback as RetrofitCallback
 
 class RegisterFragment : Fragment() {
 
@@ -112,10 +107,6 @@ class RegisterFragment : Fragment() {
     // MAIN CODE
 
 
-    fun navigateScreen(fragment: Fragment) {
-        val navLogin = activity as FragmentNavigation
-        navLogin.navigateFrag(fragment, false)
-    }
 
     private fun hideKeyboard() {
         val inputMethodManager =
@@ -136,61 +127,65 @@ class RegisterFragment : Fragment() {
             .sign(Algorithm.HMAC256(JWT_SECRET))
     }
 
-    private suspend fun sendUserToServer(
-        id: Int,
-        firstName: String,
-        lastName: String,
-        email: String,
-        username: String,
-        password: String,
-        cnfPassword: String
-    ) {
-        val user =
-            RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
+//    private suspend fun sendUserToServer(
+//        id: Int,
+//        firstName: String,
+//        lastName: String,
+//        email: String,
+//        username: String,
+//        password: String,
+//        cnfPassword: String
+//    ) {
+//        val user =
+//            RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
+//
+//        // API call
+//        val apiCall = ApiClient.getApiService().registerUser(user)
+//
+//        apiCall.enqueue(object : RetrofitCallback<RegisterResponse> {
+//            override fun onResponse(
+//                call: Call<RegisterResponse>,
+//                response: Response<RegisterResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                    // create a User object from the registration data
+//                    val user = RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
+//                    val viewModel = AxiomViewModel(requireActivity().application)
+//                    viewModel.insert(user)
+//
+////                    // insert the User object into the Room database
+////                    lifecycleScope.launch {
+////                        withContext(Dispatchers.IO) {
+////                            appDb.userDao().register(user)
+////                        }
+////                    }
+//                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+//                    findNavController().navigate(action)
+//
+//
+//                } else {
+//                    val errorBody = response.errorBody()?.string()
+//                    Snackbar.make(
+//                        requireView(),
+//                        "Unable to register: $errorBody",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+//                view?.let {
+//                    Snackbar.make(
+//                        it,
+//                        "An unexpected error has occurred ${t.localizedMessage}",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        })
+//    }
 
-        // API call
-        val apiCall = ApiClient.getApiService().registerUser(user)
-
-        apiCall.enqueue(object : RetrofitCallback<RegisterResponse> {
-            override fun onResponse(
-                call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
-            ) {
-                if (response.isSuccessful) {
-                    // create a User object from the registration data
-                    val user = RegisterRequest(id, firstName, lastName, email, username, password, cnfPassword)
-                    val viewModel = AxiomViewModel(requireActivity().application)
-                    viewModel.insert(user)
-
-//                    // insert the User object into the Room database
-//                    lifecycleScope.launch {
-//                        withContext(Dispatchers.IO) {
-//                            appDb.userDao().register(user)
-//                        }
-//                    }
-                    navigateScreen(HomeFragment())
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    Snackbar.make(
-                        requireView(),
-                        "Unable to register: $errorBody",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-
-                }
-            }
-
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                view?.let {
-                    Snackbar.make(
-                        it,
-                        "An unexpected error has occurred ${t.localizedMessage}",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-    }
 
     private fun register(): Boolean {
         val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()
@@ -240,8 +235,12 @@ class RegisterFragment : Fragment() {
                                     Log.d("test", "register: about to register $registerRequest")
                                     appDb.userDao().register(registerRequest)
 
+                                    clearEditTexts()
+
+
                                     // Set the user data in SharedPreferences
-                                    SharedPreferencesUtil.setUserData(requireContext(), registerRequest)
+//                                    SharedPreferencesUtil.setUserData(requireContext(), registerRequest)
+
                                     Toast.makeText(
                                         requireActivity(),
                                         "You are now an official Axiom affiliate 🤗.",
@@ -416,4 +415,17 @@ class RegisterFragment : Fragment() {
         )
         googleSignInTv.text = spannableString
     }
+
+    private fun clearEditTexts() {
+        firstName.setText("")
+        lastName.setText("")
+        email.setText("")
+        username.setText("")
+        password.setText("")
+        cnfPassword.setText("")
+
+    }
+
+
+
 }

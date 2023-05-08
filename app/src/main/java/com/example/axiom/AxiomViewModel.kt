@@ -13,11 +13,13 @@ class AxiomViewModel(application: Application) : AndroidViewModel(application) {
 
     val allEntities: LiveData<List<RegisterRequest>> = repository.allEntities
 
-    fun insert(registerRequest: RegisterRequest) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.insert(registerRequest)
-        }
-    }
+//    fun insert(registerRequest: RegisterRequest) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.insert(registerRequest)
+//        }
+//    }
+
+
 
     fun update(registerRequest: RegisterRequest) {
         viewModelScope.launch(Dispatchers.IO) {
