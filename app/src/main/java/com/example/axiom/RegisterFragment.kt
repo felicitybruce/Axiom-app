@@ -28,7 +28,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import com.auth0.android.callback.Callback as Auth0Callback
 
 class RegisterFragment : Fragment() {
@@ -105,7 +104,7 @@ class RegisterFragment : Fragment() {
     // MAIN CODE
 
 
-    private fun register(): Boolean {
+    private fun register() {
         val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()
         val lastName = view?.findViewById<EditText>(R.id.etLastName)?.text.toString()
         val email = view?.findViewById<EditText>(R.id.etEmail)?.text.toString()
@@ -113,84 +112,70 @@ class RegisterFragment : Fragment() {
         val password = view?.findViewById<EditText>(R.id.etPassword)?.text.toString()
         val cnfPassword = view?.findViewById<EditText>(R.id.etCnfPassword)?.text.toString()
 
-        return try {
-            CoroutineScope(Dispatchers.Default).launch {
-                withContext(Dispatchers.Main) {
-                    if (nativeValidateForm()) {
-                        // Check if email and username already exist in the database
-                        val existingUserWithEmail = appDb.userDao().getUserByEmail(email)
-                        val existingUserWithUsername = appDb.userDao().getUserByUsername(username)
+        if (nativeValidateForm()) {
+            // Check if email and username already exist in the database
+            CoroutineScope(Dispatchers.Main).launch {
+                val existingUserWithEmail = appDb.userDao().getUserByEmail(email)
+                val existingUserWithUsername = appDb.userDao().getUserByUsername(username)
 
-                        if (existingUserWithEmail != null) {
-                            // Email already exists, show error message
-                            Snackbar.make(
-                                requireView(),
-                                "Email is already taken",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
+                if (existingUserWithEmail != null) {
+                    // Email already exists, show error message
+                    Snackbar.make(
+                        requireView(),
+                        "Email is already taken",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
 
-                        } else if (existingUserWithUsername != null) {
-                            // Username already exists, show error message
-                            Snackbar.make(
-                                requireView(),
-                                "Username is already taken",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        } else {
+                } else if (existingUserWithUsername != null) {
+                    // Username already exists, show error message
+                    Snackbar.make(
+                        requireView(),
+                        "Username is already taken",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                } else {
+                    try {
+                        val registerRequest = RegisterRequest(
+                            null,
+                            firstName,
+                            lastName,
+                            email,
+                            username,
+                            password,
+                            cnfPassword
+                        )
+                        Log.d("test", "register: about to register $registerRequest")
+                        appDb.userDao().register(registerRequest)
 
-                            // Launch a coroutine and call sendUserToServer from within that coroutine
-                            CoroutineScope(Dispatchers.Main).launch {
-                                try {
-                                    val registerRequest = RegisterRequest(
-                                        null,
-                                        firstName,
-                                        lastName,
-                                        email,
-                                        username,
-                                        password,
-                                        cnfPassword
-                                    )
-                                    Log.d("test", "register: about to register $registerRequest")
-                                    appDb.userDao().register(registerRequest)
+                        clearEditTexts()
 
-                                    clearEditTexts()
+                        // Set the user data in SharedPreferences
+                        // SharedPreferencesUtil.setUserData(requireContext(), registerRequest)
 
-
-                                    // Set the user data in SharedPreferences
-//                                    SharedPreferencesUtil.setUserData(requireContext(), registerRequest)
-
-                                    Toast.makeText(
-                                        requireActivity(),
-                                        "You are now an official Axiom affiliate 🤗.",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-
-                                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-                                    findNavController().navigate(action)
-
-                                } catch (e: Exception) {
-                                    Snackbar.make(
-                                        requireView(),
-                                        "Unable to register",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        }
-                    } else {
-                        Snackbar.make(
-                            requireView(),
-                            "Please fill in all fields correctly.",
-                            Snackbar.LENGTH_SHORT
+                        Toast.makeText(
+                            requireActivity(),
+                            "You are now an official Axiom affiliate 🤗.",
+                            Toast.LENGTH_LONG
                         ).show()
 
+                        val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+                        findNavController().navigate(action)
+
+                    } catch (e: Exception) {
+                        Snackbar.make(
+                            requireView(),
+                            "Unable to register",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
-            true
-        } catch (e: Exception) {
-            Toast.makeText(requireActivity(), "Error:${e.message}", Toast.LENGTH_SHORT).show()
-            false
+        } else {
+            Snackbar.make(
+                requireView(),
+                "Please fill in all fields correctly.",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
