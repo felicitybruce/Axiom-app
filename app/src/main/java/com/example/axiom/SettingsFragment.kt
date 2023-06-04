@@ -22,7 +22,7 @@ class SettingsFragment : Fragment() {
         val viewModel = ViewModelProvider(this)[AxiomViewModel::class.java]
 
         // Observe the LiveData from the ViewModel and update the UI accordingly
-        viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
+        viewModel.allUsers.observe(viewLifecycleOwner) { entities ->
             // Loop through each entity and update the corresponding TextViews
             for (entity in entities) {
                 view.findViewById<TextView>(R.id.user_firstname).text = "First name: ${entity.firstName}"

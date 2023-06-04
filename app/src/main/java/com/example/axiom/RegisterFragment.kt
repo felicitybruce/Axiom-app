@@ -14,7 +14,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -22,11 +21,7 @@ import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
-import com.example.axiom.model.request.RegisterRequest
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import com.auth0.android.callback.Callback as Auth0Callback
 
 class RegisterFragment : Fragment() {
@@ -82,7 +77,7 @@ class RegisterFragment : Fragment() {
         // Register button -> Home page or error
         registerBtn.setOnClickListener {
             hideKeyboard()
-            register()
+//            register()
         }
 
         // Sign up with Google -> Google login web view
@@ -103,69 +98,69 @@ class RegisterFragment : Fragment() {
     // MAIN CODE
 
 
-    private fun register() {
-        val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()
-        val lastName = view?.findViewById<EditText>(R.id.etLastName)?.text.toString()
-        val email = view?.findViewById<EditText>(R.id.etEmail)?.text.toString()
-        val username = view?.findViewById<EditText>(R.id.etUsername)?.text.toString()
-        val password = view?.findViewById<EditText>(R.id.etPassword)?.text.toString()
-        val cnfPassword = view?.findViewById<EditText>(R.id.etCnfPassword)?.text.toString()
-
-        if (nativeValidateForm()) {
-            // Check if email and username already exist in the database
-            CoroutineScope(Dispatchers.Main).launch {
-                val existingUserWithEmail = appDb.userDao().getUserByEmail(email)
-                val existingUserWithUsername = appDb.userDao().getUserByUsername(username)
-
-                if (existingUserWithEmail != null) {
-                    // Email already exists, show error message
-                    Snackbar.make(
-                        requireView(),
-                        "Email is already taken",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-
-                } else if (existingUserWithUsername != null) {
-                    // Username already exists, show error message
-                    Snackbar.make(
-                        requireView(),
-                        "Username is already taken",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                } else {
-
-                    val registerRequest = RegisterRequest(
-                        null,
-                        firstName,
-                        lastName,
-                        email,
-                        username,
-                        password,
-                        cnfPassword
-                    )
-
-                    appDb.userDao().register(registerRequest)
-
-                    clearEditTexts()
-
-                    Toast.makeText(
-                        requireActivity(),
-                        "You are now an official Axiom affiliate 🤗.",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-                    findNavController().navigate(action)
-                }
-            }
-        } else {
-            Snackbar.make(
-                requireView(),
-                "Please fill in all fields correctly.",
-                Snackbar.LENGTH_SHORT
-            ).show()
-        }
-    }
+//    private fun register() {
+//        val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()
+//        val lastName = view?.findViewById<EditText>(R.id.etLastName)?.text.toString()
+//        val email = view?.findViewById<EditText>(R.id.etEmail)?.text.toString()
+//        val username = view?.findViewById<EditText>(R.id.etUsername)?.text.toString()
+//        val password = view?.findViewById<EditText>(R.id.etPassword)?.text.toString()
+//        val cnfPassword = view?.findViewById<EditText>(R.id.etCnfPassword)?.text.toString()
+//
+//        if (nativeValidateForm()) {
+//            // Check if email and username already exist in the database
+//            CoroutineScope(Dispatchers.Main).launch {
+//                val existingUserWithEmail = appDb.userDao().getUserByEmail(email)
+//                val existingUserWithUsername = appDb.userDao().getUserByUsername(username)
+//
+//                if (existingUserWithEmail != null) {
+//                    // Email already exists, show error message
+//                    Snackbar.make(
+//                        requireView(),
+//                        "Email is already taken",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//
+//                } else if (existingUserWithUsername != null) {
+//                    // Username already exists, show error message
+//                    Snackbar.make(
+//                        requireView(),
+//                        "Username is already taken",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//                } else {
+//
+//                    val registerRequest = RegisterRequest(
+//                        null,
+//                        firstName,
+//                        lastName,
+//                        email,
+//                        username,
+//                        password,
+//                        cnfPassword
+//                    )
+//
+//                    appDb.userDao().register(registerRequest)
+//
+//                    clearEditTexts()
+//
+//                    Toast.makeText(
+//                        requireActivity(),
+//                        "You are now an official Axiom affiliate 🤗.",
+//                        Toast.LENGTH_LONG
+//                    ).show()
+//
+//                    val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+//                    findNavController().navigate(action)
+//                }
+//            }
+//        } else {
+//            Snackbar.make(
+//                requireView(),
+//                "Please fill in all fields correctly.",
+//                Snackbar.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
 
     private fun nativeValidateForm(): Boolean {
         val firstName = view?.findViewById<EditText>(R.id.etFirstName)?.text.toString()

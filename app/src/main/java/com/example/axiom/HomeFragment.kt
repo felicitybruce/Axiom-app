@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
 
 
         // Observe the LiveData from the ViewModel and update the adapter accordingly
-        viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
+        viewModel.allUsers.observe(viewLifecycleOwner) { entities ->
             for (entity in entities) {
                 if (!adapter.entities.contains(entity)) {
                     adapter.addEntity(entity)

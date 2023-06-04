@@ -15,6 +15,8 @@ class ProfileFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ProfileAdapter
 
+    // TODO: search how to get the action... bundle into here 
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +34,7 @@ class ProfileFragment : Fragment() {
 
 
         // Observe the LiveData from the ViewModel and update the adapter accordingly
-        viewModel.allEntities.observe(viewLifecycleOwner) { entities ->
+        viewModel.allUsers.observe(viewLifecycleOwner) { entities ->
             for (entity in entities) {
                 if (!adapter.entities.contains(entity)) {
                     adapter.addEntity(entity)
@@ -53,4 +55,3 @@ class ProfileFragment : Fragment() {
         return view
     }
 }
-

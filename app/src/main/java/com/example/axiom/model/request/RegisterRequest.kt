@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "user")
 data class RegisterRequest(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
+    val id: Int? = null,
     @ColumnInfo(name = "firstName")
     val firstName: String,
     @ColumnInfo(name = "lastName")
@@ -20,4 +20,5 @@ data class RegisterRequest(
     val password: String,
     @ColumnInfo(name = "cnfPassword")
     val cnfPassword: String
+
 )

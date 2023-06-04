@@ -11,15 +11,13 @@ import kotlinx.coroutines.launch
 class AxiomViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: AxiomRepository = AxiomRepository(application)
 
-    val allEntities: LiveData<List<RegisterRequest>> = repository.allEntities
+    val allUsers: LiveData<List<RegisterRequest>> = repository.allUsers
 
-//    fun insert(registerRequest: RegisterRequest) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.insert(registerRequest)
-//        }
-//    }
-
-
+    fun insert(registerRequest: RegisterRequest) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insert(registerRequest)
+        }
+    }
 
     fun update(registerRequest: RegisterRequest) {
         viewModelScope.launch(Dispatchers.IO) {

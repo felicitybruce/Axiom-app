@@ -59,10 +59,13 @@ fun main() {
             // Do something with the User object, e.g. store it in a database
             println("Received user: $user")
 
-            // Send response
+
+            // Send success response
             val response = "Success!".toByteArray()
             exchange.sendResponseHeaders(200, response.size.toLong())
             exchange.responseBody.write(response)
+
+
             exchange.responseBody.close()
         } else {
             val message = "Soz, not allowed"

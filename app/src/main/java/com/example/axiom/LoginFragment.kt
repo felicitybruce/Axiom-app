@@ -7,6 +7,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -159,12 +160,19 @@ class LoginFragment : Fragment() {
             if (user != null && email == user.email && password == user.password) {
                 // Create a User object using the retrieved user data
 
+
                 // Clear text fields
                 emailLog.setText("")
                 passwordLog.setText("")
 
+                val loggedInUserId = user.id
+
+                Log.d("testt", "login: $loggedInUserId")
+
                 Toast.makeText(requireContext(), "whole user! ${user.firstName}", Toast.LENGTH_SHORT).show()
-                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+
+                // loggedInUserId variable is used to store the ID of the logged-in user, and it is passed to the HomeFragment
+                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment(loggedInUserId ?: 0)
                 findNavController().navigate(action)
 
             } else {

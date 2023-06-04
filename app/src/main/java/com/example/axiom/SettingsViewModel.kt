@@ -8,5 +8,5 @@ import com.example.axiom.model.request.RegisterRequest
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: AxiomRepository = AxiomRepository(application)
 
-    val allEntities: LiveData<List<RegisterRequest>> = repository.allEntities
+    val allUsers: LiveData<List<RegisterRequest>> = repository.allUsers
 }
